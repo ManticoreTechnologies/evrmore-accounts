@@ -32,13 +32,50 @@ pip3 install evrmore-accounts
 
 ## Quick Start
 
-### Running the API Server
+### Running the API Server (Development)
 
 ```bash
 python3 -m evrmore_accounts.app
 ```
 
 This will start a Flask application with both the API endpoints and a web interface available at http://localhost:5000.
+
+### Running with Gunicorn (Production)
+
+For production deployments, we recommend using Gunicorn:
+
+```bash
+# Basic usage
+gunicorn --bind 0.0.0.0:5000 --workers 4 wsgi:app
+
+# Or use the provided script
+./run_gunicorn.sh
+```
+
+You can customize the configuration by setting environment variables:
+
+```bash
+# Custom configuration
+export PORT=8000
+export WORKERS=2
+export TIMEOUT=60
+export JWT_SECRET=your_secure_secret_key
+
+# Run with custom configuration
+./run_gunicorn.sh
+```
+
+For more details, see the [Deployment Guide](docs/guide/deployment.md).
+
+### Docker Deployment
+
+```bash
+# Build the Docker image
+docker build -t evrmore-accounts .
+
+# Run the container
+docker run -p 5000:5000 evrmore-accounts
+```
 
 ### Running the Demo
 
@@ -113,6 +150,10 @@ pip3 install -e .
 ```bash
 python3 test_evrmore_accounts.py
 ```
+
+## Documentation
+
+For comprehensive documentation, visit [our documentation site](https://manticoretechnologies.github.io/evrmore-accounts/).
 
 ## License
 

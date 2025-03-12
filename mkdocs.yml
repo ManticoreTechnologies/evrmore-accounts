@@ -53,15 +53,20 @@ nav:
     - Quick Start: guide/quickstart.md
     - Authentication Flow: guide/authentication-flow.md
     - Configuration: guide/configuration.md
+    - Deployment: guide/deployment.md
   - API Reference:
     - Backend API: api/backend.md
     - JavaScript API: api/javascript.md
   - Examples:
     - Basic Integration: examples/basic.md
     - Custom UI: examples/custom-ui.md
+  - Guides:
+    - Troubleshooting: guides/troubleshooting.md
+    - Customization: guides/customization.md
   - Development:
     - Contributing: development/contributing.md
     - Testing: development/testing.md
+    - Security: development/security.md
   - About:
     - License: about/license.md
     - Changelog: about/changelog.md 
