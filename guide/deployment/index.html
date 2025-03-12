@@ -12,13 +12,13 @@
         <meta name="author" content="Manticore Technologies">
       
       
-        <link rel="canonical" href="https://manticoretechnologies.github.io/evrmore-accounts/guide/authentication-flow/">
+        <link rel="canonical" href="https://manticoretechnologies.github.io/evrmore-accounts/guide/deployment/">
       
       
-        <link rel="prev" href="../quickstart/">
+        <link rel="prev" href="../configuration/">
       
       
-        <link rel="next" href="../configuration/">
+        <link rel="next" href="../../api/backend/">
       
       
       <link rel="icon" href="../../evrmore_accounts/static/evrmore-logo.svg">
@@ -26,7 +26,7 @@
     
     
       
-        <title>Authentication Flow - Evrmore Accounts</title>
+        <title>Deployment - Evrmore Accounts</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#authentication-flow" class="md-skip">
+        <a href="#deployment-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Authentication Flow
+              Deployment
             
           </span>
         </div>
@@ -346,31 +346,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Authentication Flow
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../authentication-flow/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -380,131 +359,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overview
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#authentication-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      Authentication Steps
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#detailed-flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      Detailed Flow
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Detailed Flow">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-challenge-generation" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Challenge Generation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-challenge-signing" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Challenge Signing
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-signature-verification" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Signature Verification
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-token-issuance" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. Token Issuance
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-session-management" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. Session Management
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#token-refresh" class="md-nav__link">
-    <span class="md-ellipsis">
-      Token Refresh
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#security-considerations" class="md-nav__link">
-    <span class="md-ellipsis">
-      Security Considerations
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      Next Steps
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -536,10 +390,31 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../deployment/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Deployment
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -549,6 +424,149 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-with-gunicorn" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploying with Gunicorn
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deploying with Gunicorn">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-gunicorn-directly" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running Gunicorn Directly
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gunicorn-configuration-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gunicorn Configuration Options
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-with-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment with Docker
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-with-systemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment with Systemd
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-with-nginx-reverse-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment with Nginx Reverse Proxy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Tuning
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#health-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Health Checks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1087,73 +1105,55 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#deploying-with-gunicorn" class="md-nav__link">
     <span class="md-ellipsis">
-      Overview
+      Deploying with Gunicorn
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#authentication-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      Authentication Steps
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#detailed-flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      Detailed Flow
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Detailed Flow">
+    <nav class="md-nav" aria-label="Deploying with Gunicorn">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-challenge-generation" class="md-nav__link">
+  <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Challenge Generation
+      Installation
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-challenge-signing" class="md-nav__link">
+  <a href="#basic-usage" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Challenge Signing
+      Basic Usage
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-signature-verification" class="md-nav__link">
+  <a href="#custom-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Signature Verification
+      Custom Configuration
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-token-issuance" class="md-nav__link">
+  <a href="#running-gunicorn-directly" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Token Issuance
+      Running Gunicorn Directly
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-session-management" class="md-nav__link">
+  <a href="#gunicorn-configuration-options" class="md-nav__link">
     <span class="md-ellipsis">
-      5. Session Management
+      Gunicorn Configuration Options
     </span>
   </a>
   
@@ -1165,18 +1165,54 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#token-refresh" class="md-nav__link">
+  <a href="#deployment-with-docker" class="md-nav__link">
     <span class="md-ellipsis">
-      Token Refresh
+      Deployment with Docker
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#security-considerations" class="md-nav__link">
+  <a href="#deployment-with-systemd" class="md-nav__link">
     <span class="md-ellipsis">
-      Security Considerations
+      Deployment with Systemd
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-with-nginx-reverse-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment with Nginx Reverse Proxy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Tuning
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#health-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Health Checks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring
     </span>
   </a>
   
@@ -1210,95 +1246,190 @@
   
 
 
-<h1 id="authentication-flow">Authentication Flow<a class="headerlink" href="#authentication-flow" title="Permanent link">&para;</a></h1>
-<p>This page explains the authentication flow used by Evrmore Accounts.</p>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>Evrmore Accounts uses a challenge-response authentication mechanism based on cryptographic signatures. This approach leverages the security of the Evrmore blockchain without requiring users to share their private keys.</p>
-<h2 id="authentication-steps">Authentication Steps<a class="headerlink" href="#authentication-steps" title="Permanent link">&para;</a></h2>
-<p>The authentication process follows these steps:</p>
-<ol>
-<li><strong>Challenge Generation</strong>: The server generates a unique challenge for the user's Evrmore address</li>
-<li><strong>Challenge Signing</strong>: The user signs the challenge with their private key</li>
-<li><strong>Signature Verification</strong>: The server verifies the signature against the user's public key</li>
-<li><strong>Token Issuance</strong>: Upon successful verification, the server issues a JWT token</li>
-<li><strong>Session Management</strong>: The client stores the token and uses it for subsequent requests</li>
-</ol>
-<h2 id="detailed-flow">Detailed Flow<a class="headerlink" href="#detailed-flow" title="Permanent link">&para;</a></h2>
-<h3 id="1-challenge-generation">1. Challenge Generation<a class="headerlink" href="#1-challenge-generation" title="Permanent link">&para;</a></h3>
-<p>When a user wants to authenticate, the client sends the user's Evrmore address to the server:</p>
-<div class="highlight"><pre><span></span><code>POST /api/challenge
-{
-  &quot;evrmore_address&quot;: &quot;EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc&quot;
+<h1 id="deployment-guide">Deployment Guide<a class="headerlink" href="#deployment-guide" title="Permanent link">&para;</a></h1>
+<p>This guide explains how to deploy Evrmore Accounts in a production environment.</p>
+<h2 id="deploying-with-gunicorn">Deploying with Gunicorn<a class="headerlink" href="#deploying-with-gunicorn" title="Permanent link">&para;</a></h2>
+<p>For production deployments, we recommend using <a href="https://gunicorn.org/">Gunicorn</a> (Green Unicorn), a Python WSGI HTTP Server.</p>
+<h3 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h3>
+<p>First, ensure you have Gunicorn installed:</p>
+<div class="highlight"><pre><span></span><code>pip3<span class="w"> </span>install<span class="w"> </span>gunicorn
+</code></pre></div>
+<p>Gunicorn is already included in the project's <code>requirements.txt</code>, so if you've installed the package dependencies, you should already have it.</p>
+<h3 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h3>
+<p>The project includes a <code>wsgi.py</code> file that serves as the entry point for Gunicorn and a <code>run_gunicorn.sh</code> script that provides a convenient way to start the server with common configuration options.</p>
+<p>To run the application using the provided script:</p>
+<div class="highlight"><pre><span></span><code>./run_gunicorn.sh
+</code></pre></div>
+<p>This script sets up Gunicorn with reasonable defaults:
+- 4 worker processes
+- 120 second timeout
+- Binding to 0.0.0.0:5000
+- Info-level logging</p>
+<h3 id="custom-configuration">Custom Configuration<a class="headerlink" href="#custom-configuration" title="Permanent link">&para;</a></h3>
+<p>You can customize the Gunicorn configuration by setting environment variables before running the script:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set custom values</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PORT</span><span class="o">=</span><span class="m">8000</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">HOST</span><span class="o">=</span><span class="m">127</span>.0.0.1
+<span class="nb">export</span><span class="w"> </span><span class="nv">WORKERS</span><span class="o">=</span><span class="m">2</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">TIMEOUT</span><span class="o">=</span><span class="m">60</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">LOG_LEVEL</span><span class="o">=</span>debug
+
+<span class="c1"># Run with custom configuration</span>
+./run_gunicorn.sh
+</code></pre></div>
+<h3 id="running-gunicorn-directly">Running Gunicorn Directly<a class="headerlink" href="#running-gunicorn-directly" title="Permanent link">&para;</a></h3>
+<p>If you prefer to run Gunicorn directly without the script:</p>
+<div class="highlight"><pre><span></span><code>gunicorn<span class="w"> </span>--bind<span class="w"> </span><span class="m">0</span>.0.0.0:5000<span class="w"> </span>--workers<span class="w"> </span><span class="m">4</span><span class="w"> </span>wsgi:app
+</code></pre></div>
+<h3 id="gunicorn-configuration-options">Gunicorn Configuration Options<a class="headerlink" href="#gunicorn-configuration-options" title="Permanent link">&para;</a></h3>
+<p>Here are some common Gunicorn options you might want to adjust:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--workers</code></td>
+<td>Number of worker processes</td>
+<td>4</td>
+</tr>
+<tr>
+<td><code>--timeout</code></td>
+<td>Worker timeout in seconds</td>
+<td>120</td>
+</tr>
+<tr>
+<td><code>--bind</code></td>
+<td>Address to bind to</td>
+<td>0.0.0.0:5000</td>
+</tr>
+<tr>
+<td><code>--log-level</code></td>
+<td>Log level (debug, info, warning, error, critical)</td>
+<td>info</td>
+</tr>
+<tr>
+<td><code>--access-logfile</code></td>
+<td>Access log file</td>
+<td>- (stdout)</td>
+</tr>
+<tr>
+<td><code>--error-logfile</code></td>
+<td>Error log file</td>
+<td>- (stderr)</td>
+</tr>
+<tr>
+<td><code>--max-requests</code></td>
+<td>Maximum number of requests a worker will process before restarting</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>--worker-class</code></td>
+<td>Worker class type (sync, eventlet, gevent, etc.)</td>
+<td>sync</td>
+</tr>
+</tbody>
+</table>
+<p>For a complete list of options, refer to the <a href="https://docs.gunicorn.org/en/stable/settings.html">Gunicorn documentation</a>.</p>
+<h2 id="deployment-with-docker">Deployment with Docker<a class="headerlink" href="#deployment-with-docker" title="Permanent link">&para;</a></h2>
+<p>The project includes a Dockerfile that already uses Gunicorn for production deployments.</p>
+<p>To build and run the Docker container:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Build the Docker image</span>
+docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>evrmore-accounts<span class="w"> </span>.
+
+<span class="c1"># Run the container</span>
+docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">5000</span>:5000<span class="w"> </span>evrmore-accounts
+</code></pre></div>
+<p>You can override the default settings by passing environment variables:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">PORT</span><span class="o">=</span><span class="m">8000</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">WORKERS</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">TIMEOUT</span><span class="o">=</span><span class="m">60</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">JWT_SECRET</span><span class="o">=</span>your_secure_secret<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>evrmore-accounts
+</code></pre></div>
+<h2 id="deployment-with-systemd">Deployment with Systemd<a class="headerlink" href="#deployment-with-systemd" title="Permanent link">&para;</a></h2>
+<p>For deploying on Linux servers with systemd, you can create a service file:</p>
+<div class="highlight"><pre><span></span><code>[Unit]
+Description=Evrmore Accounts Gunicorn Service
+After=network.target
+
+[Service]
+User=evrmore
+Group=evrmore
+WorkingDirectory=/path/to/evrmore-accounts
+Environment=&quot;PATH=/path/to/venv/bin&quot;
+Environment=&quot;JWT_SECRET=your_secure_secret&quot;
+ExecStart=/path/to/venv/bin/gunicorn --workers 4 --bind 0.0.0.0:5000 wsgi:app
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
+</code></pre></div>
+<p>Save this to <code>/etc/systemd/system/evrmore-accounts.service</code>, then:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Reload systemd</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
+
+<span class="c1"># Start the service</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>evrmore-accounts
+
+<span class="c1"># Enable the service to start at boot</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>evrmore-accounts
+</code></pre></div>
+<h2 id="deployment-with-nginx-reverse-proxy">Deployment with Nginx Reverse Proxy<a class="headerlink" href="#deployment-with-nginx-reverse-proxy" title="Permanent link">&para;</a></h2>
+<p>In production, it's recommended to use Nginx as a reverse proxy in front of Gunicorn:</p>
+<div class="highlight"><pre><span></span><code>server {
+    listen 80;
+    server_name your-domain.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
 }
 </code></pre></div>
-<p>The server generates a unique challenge string that includes:
-- A fixed prefix
-- The user's Evrmore address
-- A timestamp
-- A random nonce</p>
-<p>Example challenge:
-<div class="highlight"><pre><span></span><code>Sign this message to authenticate with Evrmore: EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc:1741815113:c4365fe48492d73f
-</code></pre></div></p>
-<h3 id="2-challenge-signing">2. Challenge Signing<a class="headerlink" href="#2-challenge-signing" title="Permanent link">&para;</a></h3>
-<p>The user signs this challenge with their private key. This can be done using:
-- The Evrmore Core wallet
-- A compatible wallet application
-- The <code>evrmore-cli</code> command-line tool</p>
-<p>Example using <code>evrmore-cli</code>:
-<div class="highlight"><pre><span></span><code>evrmore-cli<span class="w"> </span>signmessage<span class="w"> </span><span class="s2">&quot;EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc&quot;</span><span class="w"> </span><span class="s2">&quot;Sign this message to authenticate with Evrmore: EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc:1741815113:c4365fe48492d73f&quot;</span>
-</code></pre></div></p>
-<p>This produces a base64-encoded signature.</p>
-<h3 id="3-signature-verification">3. Signature Verification<a class="headerlink" href="#3-signature-verification" title="Permanent link">&para;</a></h3>
-<p>The client sends the signature back to the server along with the original challenge and Evrmore address:</p>
-<div class="highlight"><pre><span></span><code>POST /api/authenticate
-{
-  &quot;evrmore_address&quot;: &quot;EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc&quot;,
-  &quot;challenge&quot;: &quot;Sign this message to authenticate with Evrmore: EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc:1741815113:c4365fe48492d73f&quot;,
-  &quot;signature&quot;: &quot;H9zHnUbwvQiXpAHnYDxkTRxCHRUKzQXQ3QNAyA+9SJKmEtFfMn7Z5JJXRQs29Jzf6HjA0e2yqC1Xk/9M94Uz6Sc=&quot;
-}
+<p>For HTTPS support, we recommend using Certbot to obtain SSL certificates:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install Certbot</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>certbot<span class="w"> </span>python3-certbot-nginx
+
+<span class="c1"># Obtain and configure SSL certificate</span>
+sudo<span class="w"> </span>certbot<span class="w"> </span>--nginx<span class="w"> </span>-d<span class="w"> </span>your-domain.com
 </code></pre></div>
-<p>The server verifies the signature using the Evrmore blockchain's signature verification algorithm. This confirms that the signature was created by the private key corresponding to the provided Evrmore address.</p>
-<h3 id="4-token-issuance">4. Token Issuance<a class="headerlink" href="#4-token-issuance" title="Permanent link">&para;</a></h3>
-<p>If the signature is valid, the server:
-1. Creates or retrieves the user account associated with the Evrmore address
-2. Generates a JWT token containing the user's information and an expiration time
-3. Returns the token to the client</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;expires_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-03-19T13:41:53.198694&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;b95ab2dc-ef0a-4fc4-8404-dc6252c7bb53&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;evrmore_address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc&quot;</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="5-session-management">5. Session Management<a class="headerlink" href="#5-session-management" title="Permanent link">&para;</a></h3>
-<p>The client stores the token (typically in localStorage) and includes it in the Authorization header for subsequent API requests:</p>
-<div class="highlight"><pre><span></span><code>GET /api/user
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-</code></pre></div>
-<p>The server validates the token on each request and grants access to protected resources if the token is valid.</p>
-<h2 id="token-refresh">Token Refresh<a class="headerlink" href="#token-refresh" title="Permanent link">&para;</a></h2>
-<p>Tokens have an expiration time to enhance security. The client can:</p>
+<h2 id="performance-tuning">Performance Tuning<a class="headerlink" href="#performance-tuning" title="Permanent link">&para;</a></h2>
+<p>For high-traffic deployments, consider these optimizations:</p>
 <ol>
-<li>Automatically refresh the token before it expires</li>
-<li>Request a new token when the current one expires</li>
-<li>Sign out the user when the token expires</li>
+<li><strong>Adjust worker count</strong>: A common formula is <code>2 * CPU cores + 1</code></li>
+<li><strong>Use worker classes</strong>: For I/O bound applications, consider using gevent or eventlet</li>
+<li><strong>Implement caching</strong>: Add Redis or Memcached for caching</li>
+<li><strong>Database connection pooling</strong>: Optimize database connections</li>
+<li><strong>Content Delivery Network (CDN)</strong>: Use a CDN for static assets</li>
 </ol>
-<h2 id="security-considerations">Security Considerations<a class="headerlink" href="#security-considerations" title="Permanent link">&para;</a></h2>
-<p>This authentication flow provides several security benefits:</p>
+<h2 id="health-checks">Health Checks<a class="headerlink" href="#health-checks" title="Permanent link">&para;</a></h2>
+<p>The application provides a health check endpoint at <code>/api/health</code> that returns the current status and version.</p>
+<p>Use this for monitoring and load balancer health checks:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://your-server.com/api/health
+</code></pre></div>
+<h2 id="monitoring">Monitoring<a class="headerlink" href="#monitoring" title="Permanent link">&para;</a></h2>
+<p>For production deployments, consider setting up monitoring:</p>
 <ol>
-<li><strong>Private Key Protection</strong>: The user's private key never leaves their wallet</li>
-<li><strong>Challenge Uniqueness</strong>: Each challenge includes a timestamp and random nonce to prevent replay attacks</li>
-<li><strong>Limited Challenge Lifetime</strong>: Challenges expire after a short period (default: 10 minutes)</li>
-<li><strong>Token Expiration</strong>: JWT tokens have a limited lifetime</li>
-<li><strong>Signature Verification</strong>: The signature verification uses the same cryptographic algorithms as the Evrmore blockchain</li>
+<li><strong>Prometheus</strong>: For metrics collection</li>
+<li><strong>Grafana</strong>: For dashboards and visualization</li>
+<li><strong>ELK Stack</strong>: For log aggregation and analysis</li>
+<li><strong>Uptime monitoring</strong>: Services like Uptime Robot or Pingdom</li>
 </ol>
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Learn how to <a href="../configuration/">configure</a> the authentication settings</li>
-<li>See <a href="../../examples/basic/">example integrations</a> for implementation details</li>
-<li>Explore the <a href="../../api/javascript/">JavaScript library</a> for client-side authentication </li>
+<li>Review <a href="../../development/security/">security guidelines</a> for production deployments</li>
+<li>Check <a href="../../guides/troubleshooting/">troubleshooting</a> for common issues</li>
+<li>Explore <a href="../../guides/customization/">customization options</a> for your deployment </li>
 </ul>
 
 
