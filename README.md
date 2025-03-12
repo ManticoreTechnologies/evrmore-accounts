@@ -100,7 +100,7 @@ Check out the `simple_integration_example.html` file for an example of how to in
 Add the Evrmore Accounts JavaScript library to your web application:
 
 ```html
-<script src="https://cdn.manticore.technology/evrmore-accounts.js"></script>
+<script src="https://cdn.manticore.technology/static/evrmore-accounts.js"></script>
 ```
 
 Initialize the library and create a sign-in button:
@@ -108,7 +108,7 @@ Initialize the library and create a sign-in button:
 ```javascript
 // Initialize Evrmore Accounts
 EvrmoreAccounts.init({
-  apiUrl: 'http://your-api-server.com/api',
+  apiUrl: 'https://auth.manticore.technology/api',
   autoRefresh: true,
   debug: false
 });

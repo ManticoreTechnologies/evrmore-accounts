@@ -138,7 +138,7 @@
         <div class="card" id="auth-card">
             <div id="login-container">
                 <div style="text-align: center;">
-                    <img src="/static/evrmore-logo.svg" alt="Evrmore Logo" width="80" height="80" style="margin-bottom: 20px;">
+                    <img src="https://cdn.manticore.technology/static/evrmore-logo.svg" alt="Evrmore Logo" width="80" height="80" style="margin-bottom: 20px;">
                     <h2>Sign in with Evrmore</h2>
                     <p>Authenticate securely using your Evrmore wallet</p>
                 </div>
@@ -183,6 +183,7 @@
                 
                 <div style="margin-top: 20px;">
                     <p>You are now signed in with Evrmore Accounts.</p>
+                    <p>Server: <span id="auth-server-url">https://auth.manticore.technology</span></p>
                     <button id="sign-out-button" class="btn btn-outline" style="margin-top: 10px;">Sign Out</button>
                 </div>
             </div>
@@ -193,13 +194,13 @@
             <h2>How to Integrate</h2>
             <p>Add the Evrmore Accounts JavaScript library to your web application:</p>
             
-            <pre><code>&lt;script src="https://cdn.manticore.technology/evrmore-accounts.js"&gt;&lt;/script&gt;</code></pre>
+            <pre><code>&lt;script src="https://cdn.manticore.technology/static/evrmore-accounts.js"&gt;&lt;/script&gt;</code></pre>
             
             <p>Initialize the library and create a sign-in button:</p>
             
             <pre><code>// Initialize Evrmore Accounts
 EvrmoreAccounts.init({
-  apiUrl: 'http://your-api-server.com/api',
+  apiUrl: 'https://auth.manticore.technology/api',
   autoRefresh: true,
   debug: false
 });
@@ -218,22 +219,54 @@ EvrmoreAccounts.onAuthStateChanged(function(user) {
   }
 });</code></pre>
         </div>
+
+        <!-- Connection Status -->
+        <div class="card" style="margin-top: 30px;">
+            <h3>Connection Status</h3>
+            <div id="connection-status">Checking connection to auth server...</div>
+        </div>
     </div>
     
     <!-- Add the Evrmore Accounts JavaScript library -->
-    <script src="/static/evrmore-accounts.js"></script>
+    <script src="https://cdn.manticore.technology/static/evrmore-accounts.js"></script>
     <script>
         // Initialize when the page loads
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM loaded, initializing Evrmore Accounts...');
             
-            // Initialize Evrmore Accounts
+            // Define the auth server URL explicitly to ensure it's used
+            const AUTH_SERVER_URL = 'https://auth.manticore.technology/api';
+            
+            // Display the auth server URL in the UI
+            document.getElementById('auth-server-url').textContent = AUTH_SERVER_URL.replace('/api', '');
+            
+            // Check connection to auth server
+            fetch(AUTH_SERVER_URL + '/health', { method: 'GET' })
+                .then(response => {
+                    if (response.ok) return response.json();
+                    throw new Error('Server returned ' + response.status);
+                })
+                .then(data => {
+                    document.getElementById('connection-status').innerHTML = 
+                        '<div style="color: #155724; background-color: #d4edda; padding: 10px; border-radius: 4px;">' +
+                        'Connected to auth server. Status: ' + data.status + ', Version: ' + data.version + '</div>';
+                })
+                .catch(error => {
+                    console.error('Connection error:', error);
+                    document.getElementById('connection-status').innerHTML = 
+                        '<div style="color: #721c24; background-color: #f8d7da; padding: 10px; border-radius: 4px;">' +
+                        'Failed to connect to auth server. ' + error.message + '<br><br>' +
+                        'Make sure you have CORS enabled and the server is running at:<br>' +
+                        '<strong>' + AUTH_SERVER_URL + '</strong></div>';
+                });
+            
+            // Initialize Evrmore Accounts with explicit auth server URL
             EvrmoreAccounts.init({
-                apiUrl: '/api',
+                apiUrl: AUTH_SERVER_URL,
                 debug: true
             });
             
-            console.log('EvrmoreAccounts initialized');
+            console.log('EvrmoreAccounts initialized with server:', AUTH_SERVER_URL);
             
             // Get UI elements
             const signInButton = document.getElementById('sign-in-button');

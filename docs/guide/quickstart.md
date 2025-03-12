@@ -42,7 +42,7 @@ The following API endpoints are available:
 To use Evrmore Accounts in your web application, add the JavaScript client library:
 
 ```html
-<script src="http://your-server.com/static/evrmore-accounts.js"></script>
+<script src="https://cdn.manticore.technology/static/evrmore-accounts.js"></script>
 ```
 
 Initialize the library and create a sign-in button:
@@ -50,7 +50,7 @@ Initialize the library and create a sign-in button:
 ```javascript
 // Initialize Evrmore Accounts
 EvrmoreAccounts.init({
-  apiUrl: 'http://your-server.com/api',
+  apiUrl: 'https://auth.manticore.technology/api',
   autoRefresh: true,
   debug: false
 });

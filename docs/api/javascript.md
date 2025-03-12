@@ -7,7 +7,7 @@ The Evrmore Accounts JavaScript client library provides client-side functionalit
 ### Loading from CDN
 
 ```html
-<script src="https://cdn.manticore.technology/evrmore-accounts.js"></script>
+<script src="https://cdn.manticore.technology/static/evrmore-accounts.js"></script>
 ```
 
 ### Loading from your server
@@ -22,9 +22,9 @@ Initialize the library with configuration options:
 
 ```javascript
 EvrmoreAccounts.init({
-  apiUrl: '/api',          // API endpoint URL (default: '/api')
-  autoRefresh: true,       // Auto-refresh authentication (default: true)
-  debug: false             // Enable debug logging (default: false)
+  apiUrl: 'https://auth.manticore.technology/api',  // API endpoint URL
+  autoRefresh: true,                               // Auto-refresh authentication (default: true)
+  debug: false                                     // Enable debug logging (default: false)
 });
 ```
 

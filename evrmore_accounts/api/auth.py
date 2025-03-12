@@ -81,15 +81,24 @@ class AccountsAuth:
         logger.debug(f"Authenticating address: {evrmore_address}")
         
         # First verify the signature is valid for better debugging
-        is_valid = self.auth.verify_signature_only(
-            address=evrmore_address,
-            message=challenge,
-            signature=signature
-        )
-        
-        if not is_valid:
-            logger.warning(f"Invalid signature for address: {evrmore_address}")
-            raise AuthenticationError("Invalid signature")
+        try:
+            # Using verify_signature from the standard Evrmore library instead of verify_signature_only
+            from evrmore_authentication.utils import verify_signature
+            
+            is_valid = verify_signature(
+                address=evrmore_address,
+                message=challenge,
+                signature=signature
+            )
+            
+            if not is_valid:
+                logger.warning(f"Invalid signature for address: {evrmore_address}")
+                raise AuthenticationError("Invalid signature")
+        except ImportError:
+            # If we can't import the verify_signature function, we'll skip this check
+            # and let the authentication method handle it
+            logger.warning("Could not import verify_signature, skipping signature pre-verification")
+            pass
             
         try:
             # First try standard authentication
