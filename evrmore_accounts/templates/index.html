@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evrmore Accounts - Blockchain Authentication</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    .hero {
+      padding: 4rem 0;
+      background-color: var(--light-background);
+      text-align: center;
+    }
+    
+    .hero-logo {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 2rem;
+    }
+    
+    .hero-cta {
+      margin-top: 2rem;
+    }
+    
+    .hero-cta .btn {
+      margin: 0 0.5rem;
+    }
+    
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    @media (max-width: 992px) {
+      .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .feature-card {
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+    
+    .code-overview {
+      margin-top: 2rem;
+    }
+    
+    .how-it-works {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .workflow-step {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+      gap: 1.5rem;
+    }
+    
+    .workflow-step-number {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-top: 0.25rem;
+    }
+    
+    .workflow-step-content {
+      flex-grow: 1;
+    }
+    
+    .workflow-step-title {
+      margin-bottom: 0.5rem;
+      font-size: 1.25rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <div class="site-logo">
+        <img src="{{ url_for('static', filename='evrmore-logo.svg') }}" alt="Evrmore">
+        <span>Evrmore Accounts</span>
+      </div>
+      <nav class="site-nav">
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="{{ url_for('demo') }}">Demo</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-logo">
+        <img src="{{ url_for('static', filename='evrmore-logo.svg') }}" alt="Evrmore Logo" width="120" height="120">
+      </div>
+      <h1>Evrmore Accounts</h1>
+      <p class="mb-3">A simple, secure authentication system using the Evrmore blockchain</p>
+      <div class="hero-cta">
+        <a href="{{ url_for('demo') }}" class="btn btn-primary btn-large">Try the Demo</a>
+        <a href="https://github.com/manticoretechnologies/evrmore-accounts" class="btn btn-outline btn-large">View on GitHub</a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="container">
+      <!-- Features Section -->
+      <section id="features" class="section">
+        <h2 class="text-center">Key Features</h2>
+        <p class="text-center mb-4">Leverage the security and convenience of blockchain for authentication</p>
+        
+        <div class="feature-grid">
+          <div class="feature-card card">
+            <div class="feature-icon">🔒</div>
+            <h3>No Passwords</h3>
+            <p>Users sign in with their Evrmore wallet instead of creating and remembering passwords.</p>
+          </div>
+          
+          <div class="feature-card card">
+            <div class="feature-icon">🔑</div>
+            <h3>Cryptographic Security</h3>
+            <p>Authentication based on blockchain cryptography provides military-grade security.</p>
+          </div>
+          
+          <div class="feature-card card">
+            <div class="feature-icon">🌐</div>
+            <h3>Easy Integration</h3>
+            <p>Simple JavaScript library makes integration with any web application straightforward.</p>
+          </div>
+          
+          <div class="feature-card card">
+            <div class="feature-icon">💼</div>
+            <h3>User Management</h3>
+            <p>Built-in user creation and management with extensible user profiles.</p>
+          </div>
+          
+          <div class="feature-card card">
+            <div class="feature-icon">🛡️</div>
+            <h3>JWT Tokens</h3>
+            <p>Secure, stateless JWT tokens for authenticated sessions with automatic expiry.</p>
+          </div>
+          
+          <div class="feature-card card">
+            <div class="feature-icon">🚀</div>
+            <h3>Modern UI</h3>
+            <p>Clean, modern user interface with responsive design for all devices.</p>
+          </div>
+        </div>
+      </section>
+      
+      <!-- How It Works Section -->
+      <section id="how-it-works" class="section">
+        <h2 class="text-center">How It Works</h2>
+        <p class="text-center mb-4">Evrmore Accounts uses challenge-based authentication with blockchain signatures</p>
+        
+        <div class="how-it-works">
+          <div class="workflow-step">
+            <div class="workflow-step-number">1</div>
+            <div class="workflow-step-content">
+              <h3 class="workflow-step-title">Challenge Generation</h3>
+              <p>When a user initiates sign-in, the server generates a unique challenge including the user's Evrmore address, a timestamp, and a random nonce.</p>
+              <div class="code-overview card mt-3">
+                <pre><code>// Server generates a challenge
+Challenge: "Sign this message to authenticate with Evrmore: EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc:1741810666:3fa805f556befabe"</code></pre>
+              </div>
+            </div>
+          </div>
+          
+          <div class="workflow-step">
+            <div class="workflow-step-number">2</div>
+            <div class="workflow-step-content">
+              <h3 class="workflow-step-title">Message Signing</h3>
+              <p>The user signs the challenge message with their Evrmore wallet, which creates a cryptographic signature that proves ownership of the wallet address.</p>
+              <div class="code-overview card mt-3">
+                <pre><code>// User signs the challenge with their wallet
+evrmore-cli signmessage "EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc" "Sign this message to authenticate with Evrmore: EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc:1741810666:3fa805f556befabe"</code></pre>
+              </div>
+            </div>
+          </div>
+          
+          <div class="workflow-step">
+            <div class="workflow-step-number">3</div>
+            <div class="workflow-step-content">
+              <h3 class="workflow-step-title">Signature Verification</h3>
+              <p>The server verifies the signature using Evrmore's cryptographic functions to confirm it was signed by the owner of the address.</p>
+              <div class="code-overview card mt-3">
+                <pre><code>// Server verifies the signature
+const isValid = verifyMessage(evrmoreAddress, challengeText, signature);
+if (isValid) {
+  // Authentication successful
+}</code></pre>
+              </div>
+            </div>
+          </div>
+          
+          <div class="workflow-step">
+            <div class="workflow-step-number">4</div>
+            <div class="workflow-step-content">
+              <h3 class="workflow-step-title">Session Creation</h3>
+              <p>Upon successful verification, the server creates a JWT token for the authenticated session and returns it to the client.</p>
+              <div class="code-overview card mt-3">
+                <pre><code>// Server creates and returns a JWT token
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "expires_at": "2025-03-19T16:27:46.900042",
+  "user": {
+    "id": "60e0df21-820b-4771-ad5b-ca621bfe7e31",
+    "evrmore_address": "EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc"
+  }
+}</code></pre>
+              </div>
+            </div>
+          </div>
+          
+          <div class="workflow-step">
+            <div class="workflow-step-number">5</div>
+            <div class="workflow-step-content">
+              <h3 class="workflow-step-title">Authenticated Requests</h3>
+              <p>The client stores the JWT token and includes it in the Authorization header for subsequent API requests to authenticate the user.</p>
+              <div class="code-overview card mt-3">
+                <pre><code>// Client includes the token in API requests
+fetch('/api/secure-endpoint', {
+  headers: {
+    'Authorization': `Bearer ${token}`
+  }
+});</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="text-center mt-5">
+          <a href="{{ url_for('demo') }}" class="btn btn-primary">Try the Demo</a>
+        </div>
+      </section>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; 2023 <a href="https://manticore.technology" target="_blank">Manticore Technologies</a>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://manticore.technology" target="_blank">Website</a></li>
+        <li><a href="https://github.com/manticoretechnologies" target="_blank">GitHub</a></li>
+        <li><a href="mailto:dev@manticore.technology">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html> 

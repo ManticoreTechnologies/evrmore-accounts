@@ -1,0 +1,13 @@
+recursive-include evrmore_accounts/static *
+recursive-include evrmore_accounts/templates *
+recursive-include evrmore_accounts/data *
+recursive-include docs *
+include LICENSE
+include README.md
+include setup.py
+include setup.cfg
+include pyproject.toml
+include MANIFEST.in
+include mkdocs.yml
+include requirements.txt
+include Dockerfile 

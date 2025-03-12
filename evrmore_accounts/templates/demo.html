@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evrmore Accounts Demo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Additional styles specific to the demo */
+        body {
+            background-color: #f5f5f5;
+            padding-bottom: 50px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 16px 0;
+            margin-bottom: 32px;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            width: 36px;
+            height: 36px;
+            margin-right: 12px;
+        }
+        
+        .header-nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 24px;
+            opacity: 0.9;
+            transition: opacity 0.2s;
+        }
+        
+        .header-nav a:hover {
+            opacity: 1;
+        }
+        
+        .demo-section {
+            margin-bottom: 40px;
+        }
+        
+        .auth-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 32px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+        
+        .demo-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 24px;
+        }
+        
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            margin: 24px 0;
+            color: var(--light-text);
+        }
+        
+        .auth-divider::before,
+        .auth-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: var(--border-color);
+        }
+        
+        .auth-divider span {
+            padding: 0 16px;
+        }
+        
+        .user-profile {
+            display: none;
+            text-align: left;
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .profile-icon {
+            width: 64px;
+            height: 64px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 16px;
+        }
+        
+        .profile-details {
+            flex: 1;
+        }
+        
+        .profile-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .profile-address {
+            font-size: 14px;
+            color: var(--light-text);
+            word-break: break-all;
+        }
+        
+        .data-section {
+            margin-top: 16px;
+            background-color: var(--light-background);
+            padding: 16px;
+            border-radius: 4px;
+        }
+        
+        .data-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .data-value {
+            word-break: break-all;
+            font-family: monospace;
+        }
+        
+        .api-demo {
+            padding: 24px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .api-section {
+            margin-bottom: 32px;
+        }
+        
+        .code-example {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 16px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin-bottom: 16px;
+            overflow-x: auto;
+        }
+        
+        .code-example pre {
+            margin: 0;
+        }
+        
+        .test-form {
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 16px;
+        }
+        
+        .test-form .evr-form-group {
+            flex: 1;
+            margin-right: 16px;
+            margin-bottom: 0;
+        }
+        
+        .result-container {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .footer {
+            margin-top: 48px;
+            text-align: center;
+            color: var(--light-text);
+            font-size: 14px;
+        }
+        
+        .api-demo {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .api-section {
+            margin-bottom: 3rem;
+        }
+        
+        .api-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .api-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .auth-profile-action {
+            margin-top: 1.5rem;
+        }
+        
+        .api-endpoint {
+            margin-bottom: 1rem;
+        }
+        
+        .api-endpoint-url {
+            font-family: var(--code-font-family);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .api-endpoint-desc {
+            margin-bottom: 0.5rem;
+        }
+        
+        .api-endpoint-example {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .api-try {
+            margin-top: 1rem;
+        }
+        
+        .api-try-form {
+            margin-top: 0.5rem;
+        }
+        
+        .api-response {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: var(--light-background);
+            border-radius: var(--border-radius);
+            font-family: var(--code-font-family);
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="site-logo">
+                <img src="{{ url_for('static', filename='evrmore-logo.svg') }}" alt="Evrmore">
+                <span>Evrmore Accounts</span>
+            </div>
+            <nav class="site-nav">
+                <ul>
+                    <li><a href="#auth-demo">Authentication Demo</a></li>
+                    <li><a href="#api-docs">API Documentation</a></li>
+                    <li><a href="#integration">Integration Guide</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Demo Section -->
+            <section id="auth-demo" class="section">
+                <h1>Evrmore Authentication Demo</h1>
+                <p class="mb-4">This demo shows how Evrmore Accounts works. Sign in with your Evrmore wallet to test the authentication flow.</p>
+                
+                <div class="api-container">
+                    <!-- Authentication Form -->
+                    <div class="auth-container" id="signInSection">
+                        <div class="auth-logo">
+                            <img src="{{ url_for('static', filename='evrmore-logo.svg') }}" alt="Evrmore Logo">
+                        </div>
+                        
+                        <h2 class="text-center mb-4">Sign in with Evrmore</h2>
+                        
+                        <div class="auth-signin">
+                            <button id="evrmoreSignIn" class="auth-signin-button">
+                                <img src="{{ url_for('static', filename='evrmore-logo.svg') }}" alt="Evrmore">
+                                <span>Sign in with Evrmore</span>
+                            </button>
+                        </div>
+                        
+                        <div class="auth-footer mt-4">
+                            <p>Don't have an Evrmore wallet? <a href="https://evrmore.org/wallet/" target="_blank">Get one here</a></p>
+                        </div>
+                    </div>
+                    
+                    <!-- User Profile (Shown when signed in) -->
+                    <div class="auth-container hidden" id="profileSection">
+                        <div class="auth-profile">
+                            <div class="auth-profile-image" id="profileImage">E</div>
+                            
+                            <h2 class="mb-3" id="profileUsername">Username</h2>
+                            
+                            <div class="auth-profile-info">
+                                <div class="auth-profile-address" id="profileAddress">
+                                    EVRxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                </div>
+                            </div>
+                            
+                            <div class="auth-profile-action">
+                                <button id="evrmoreSignOut" class="btn btn-outline">Sign Out</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- API Documentation -->
+            <section id="api-docs" class="section api-section">
+                <h2>API Documentation</h2>
+                <p class="mb-4">The Evrmore Accounts API provides endpoints for authentication and user management.</p>
+                
+                <div class="api-demo">
+                    <!-- Challenge Endpoint -->
+                    <div class="api-endpoint card">
+                        <h3 class="card-title">Generate a Challenge</h3>
+                        <div class="api-endpoint-url">POST /api/challenge</div>
+                        <div class="api-endpoint-desc">Generate a challenge for a user to sign with their Evrmore wallet.</div>
+                        
+                        <div class="api-endpoint-example">
+                            <div class="code-block">
+                                <div class="code-block-header">
+                                    <span>Request</span>
+                                    <button class="code-block-copy">Copy</button>
+                                </div>
+                                <pre><code>{
+  "evrmore_address": "EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc"
+}</code></pre>
+                            </div>
+                            
+                            <div class="code-block">
+                                <div class="code-block-header">
+                                    <span>Response</span>
+                                    <button class="code-block-copy">Copy</button>
+                                </div>
+                                <pre><code>{
+  "challenge_text": "Sign this message to authenticate with Evrmore: EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc:1741810666:3fa805f556befabe",
+  "expires_at": "2025-03-12T16:27:46.900042"
+}</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="api-try">
+                            <h4>Try it</h4>
+                            <div class="api-try-form">
+                                <div class="form-group">
+                                    <label for="challengeAddress" class="form-label">Evrmore Address</label>
+                                    <input type="text" id="challengeAddress" class="form-control" placeholder="EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc">
+                                </div>
+                                <button id="generateChallenge" class="btn btn-primary mt-2">Generate Challenge</button>
+                            </div>
+                            <div id="challengeResponse" class="api-response hidden"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Authentication Endpoint -->
+                    <div class="api-endpoint card mt-4">
+                        <h3 class="card-title">Authenticate</h3>
+                        <div class="api-endpoint-url">POST /api/authenticate</div>
+                        <div class="api-endpoint-desc">Authenticate a user with a signed challenge.</div>
+                        
+                        <div class="api-endpoint-example">
+                            <div class="code-block">
+                                <div class="code-block-header">
+                                    <span>Request</span>
+                                    <button class="code-block-copy">Copy</button>
+                                </div>
+                                <pre><code>{
+  "evrmore_address": "EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc",
+  "challenge_text": "Sign this message to authenticate with Evrmore: EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc:1741810666:3fa805f556befabe",
+  "signature": "H1MP+CwatCUG9YyTlMK5qNZQpShEHZdqkIFFV/gnoa9WW/TcMwSEPu1lNIrVgzAOQBm2ACNVgYCYsI+X/Fiy4j4="
+}</code></pre>
+                            </div>
+                            
+                            <div class="code-block">
+                                <div class="code-block-header">
+                                    <span>Response</span>
+                                    <button class="code-block-copy">Copy</button>
+                                </div>
+                                <pre><code>{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "expires_at": "2025-03-19T16:27:46.900042",
+  "user": {
+    "id": "60e0df21-820b-4771-ad5b-ca621bfe7e31",
+    "evrmore_address": "EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc"
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="api-try">
+                            <h4>Try it</h4>
+                            <div class="api-try-form">
+                                <div class="form-group">
+                                    <label for="authAddress" class="form-label">Evrmore Address</label>
+                                    <input type="text" id="authAddress" class="form-control" placeholder="EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc">
+                                </div>
+                                <div class="form-group">
+                                    <label for="authChallenge" class="form-label">Challenge Text</label>
+                                    <textarea id="authChallenge" class="form-control" rows="3" placeholder="Sign this message to authenticate with Evrmore: ..."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="authSignature" class="form-label">Signature</label>
+                                    <textarea id="authSignature" class="form-control" rows="3" placeholder="H1MP+CwatCUG9YyTlMK5qNZQpShEHZdqkIFFV/gnoa9WW/TcMwSEPu1lNIrVgzAOQBm2ACNVgYCYsI+X/Fiy4j4="></textarea>
+                                </div>
+                                <button id="authenticate" class="btn btn-primary mt-2">Authenticate</button>
+                            </div>
+                            <div id="authResponse" class="api-response hidden"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Validate Token Endpoint -->
+                    <div class="api-endpoint card mt-4">
+                        <h3 class="card-title">Validate Token</h3>
+                        <div class="api-endpoint-url">POST /api/validate</div>
+                        <div class="api-endpoint-desc">Validate a JWT token.</div>
+                        
+                        <div class="api-endpoint-example">
+                            <div class="code-block">
+                                <div class="code-block-header">
+                                    <span>Request</span>
+                                    <button class="code-block-copy">Copy</button>
+                                </div>
+                                <pre><code>{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}</code></pre>
+                            </div>
+                            
+                            <div class="code-block">
+                                <div class="code-block-header">
+                                    <span>Response</span>
+                                    <button class="code-block-copy">Copy</button>
+                                </div>
+                                <pre><code>{
+  "valid": true,
+  "user_id": "60e0df21-820b-4771-ad5b-ca621bfe7e31",
+  "evrmore_address": "EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc",
+  "expires_at": "2025-03-19T16:27:46.900042"
+}</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="api-try">
+                            <h4>Try it</h4>
+                            <div class="api-try-form">
+                                <div class="form-group">
+                                    <label for="validateToken" class="form-label">Token</label>
+                                    <textarea id="validateToken" class="form-control" rows="3" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."></textarea>
+                                </div>
+                                <button id="validateTokenBtn" class="btn btn-primary mt-2">Validate Token</button>
+                            </div>
+                            <div id="validateResponse" class="api-response hidden"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Integration Guide -->
+            <section id="integration" class="section">
+                <h2>Integration Guide</h2>
+                <p class="mb-4">Follow these steps to integrate Evrmore Accounts into your web application.</p>
+                
+                <div class="card">
+                    <h3 class="card-title">1. Include the necessary files</h3>
+                    <div class="card-body">
+                        <p>Add the Evrmore Accounts JavaScript and CSS files to your HTML:</p>
+                        <div class="code-block">
+                            <div class="code-block-header">
+                                <span>HTML</span>
+                                <button class="code-block-copy">Copy</button>
+                            </div>
+                            <pre><code>&lt;link rel="stylesheet" href="https://your-server.com/static/style.css"&gt;
+&lt;script src="https://your-server.com/static/accounts.js"&gt;&lt;/script&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <h3 class="card-title">2. Add an authentication button</h3>
+                    <div class="card-body">
+                        <p>Add a button for users to sign in with Evrmore:</p>
+                        <div class="code-block">
+                            <div class="code-block-header">
+                                <span>HTML</span>
+                                <button class="code-block-copy">Copy</button>
+                            </div>
+                            <pre><code>&lt;button id="evrmoreSignIn" class="auth-signin-button"&gt;
+  &lt;img src="https://your-server.com/static/evrmore-logo.svg" alt="Evrmore"&gt;
+  &lt;span&gt;Sign in with Evrmore&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <h3 class="card-title">3. Initialize the library</h3>
+                    <div class="card-body">
+                        <p>Initialize the Evrmore Accounts library:</p>
+                        <div class="code-block">
+                            <div class="code-block-header">
+                                <span>JavaScript</span>
+                                <button class="code-block-copy">Copy</button>
+                            </div>
+                            <pre><code>document.addEventListener('DOMContentLoaded', function() {
+  // Initialize the library
+  const evrmoreAccounts = EvrmoreAccounts.init({
+    apiUrl: 'https://your-server.com/api',
+    debug: false
+  });
+  
+  // Initialize the sign-in button
+  evrmoreAccounts.initSignInButton('#evrmoreSignIn');
+  
+  // Initialize the sign-out button (if available)
+  evrmoreAccounts.initSignOutButton('#evrmoreSignOut');
+  
+  // Listen for authentication state changes
+  evrmoreAccounts.onAuthStateChanged(function(user) {
+    if (user) {
+      console.log('User is signed in:', user);
+      // Show user profile or authenticated UI
+    } else {
+      console.log('User is signed out');
+      // Show sign-in UI
+    }
+  });
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <h3 class="card-title">4. Handle authentication state</h3>
+                    <div class="card-body">
+                        <p>Update your UI based on authentication state:</p>
+                        <div class="code-block">
+                            <div class="code-block-header">
+                                <span>JavaScript</span>
+                                <button class="code-block-copy">Copy</button>
+                            </div>
+                            <pre><code>function updateUIForUser(user) {
+  if (user) {
+    // User is signed in
+    document.getElementById('signInSection').classList.add('hidden');
+    
+    // Show profile section
+    const profileSection = document.getElementById('profileSection');
+    profileSection.classList.remove('hidden');
+    
+    // Update profile information
+    document.getElementById('profileUsername').textContent = 
+      user.username || `User ${user.id.substring(0, 8)}`;
+    document.getElementById('profileAddress').textContent = user.evrmore_address;
+    document.getElementById('profileImage').textContent = 
+      (user.username || 'E').charAt(0).toUpperCase();
+  } else {
+    // User is signed out
+    document.getElementById('signInSection').classList.remove('hidden');
+    document.getElementById('profileSection').classList.add('hidden');
+  }
+}
+
+// Use this function with the auth state change listener
+evrmoreAccounts.onAuthStateChanged(updateUIForUser);</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="copyright">
+                &copy; 2023 <a href="https://manticore.technology" target="_blank">Manticore Technologies</a>
+            </div>
+            <ul class="footer-links">
+                <li><a href="https://manticore.technology" target="_blank">Website</a></li>
+    <header>
+        <div class="evr-container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="/static/evrmore-logo.svg" alt="Evrmore">
+                    <h1>Evrmore Accounts</h1>
+                </div>
+                <nav class="header-nav">
+                    <a href="#auth-demo">Auth Demo</a>
+                    <a href="#api-docs">API Docs</a>
+                    <a href="#integration">Integration</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <main class="evr-container">
+        <section id="auth-demo" class="demo-section">
+            <h2 class="evr-title">Authentication Demo</h2>
+            <p class="evr-subtitle">Experience blockchain-based authentication with Evrmore Accounts</p>
+            
+            <div class="auth-container">
+                <!-- Authentication UI -->
+                <div id="auth-ui">
+                    <img src="/static/evrmore-logo.svg" alt="Evrmore" class="demo-logo">
+                    <h2 class="evr-title">Sign in with Evrmore</h2>
+                    <p class="evr-text">Use your Evrmore wallet to authenticate securely without a password.</p>
+                    
+                    <div class="evr-form-group">
+                        <label for="evrmore-address" class="evr-label">Your Evrmore Address</label>
+                        <input type="text" id="evrmore-address" class="evr-input" placeholder="EVxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx">
+                    </div>
+                    
+                    <button id="sign-in-button" class="evr-button evr-auth-button" data-address-input="evrmore-address">
+                        Sign in with Evrmore
+                    </button>
+                    
+                    <div class="auth-divider">
+                        <span>or</span>
+                    </div>
+                    
+                    <p class="evr-text">Don't have an Evrmore wallet?</p>
+                    <a href="https://github.com/EvrmoreOrg/Evrmore" class="evr-button evr-button-secondary" target="_blank">
+                        Get Evrmore Wallet
+                    </a>
+                </div>
+                
+                <!-- User Profile (shows when authenticated) -->
+                <div id="user-profile" class="user-profile">
+                    <div class="profile-header">
+                        <div class="profile-icon">E</div>
+                        <div class="profile-details">
+                            <div class="profile-name" id="user-name">User</div>
+                            <div class="profile-address" id="user-address">-</div>
+                        </div>
+                    </div>
+                    
+                    <div class="data-section">
+                        <div class="data-title">Authentication Token</div>
+                        <div class="data-value" id="auth-token">-</div>
+                    </div>
+                    
+                    <div class="data-section">
+                        <div class="data-title">Expires At</div>
+                        <div class="data-value" id="token-expires">-</div>
+                    </div>
+                    
+                    <button id="logout-button" class="evr-button evr-button-error evr-mt">
+                        Sign Out
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <section id="api-docs" class="demo-section">
+            <h2 class="evr-title">API Documentation</h2>
+            <p class="evr-subtitle">Interact with the Evrmore Accounts API</p>
+            
+            <div class="api-demo">
+                <div class="api-section">
+                    <h3 class="evr-subtitle">1. Generate Challenge</h3>
+                    <p>Generate a challenge for the user to sign with their Evrmore wallet.</p>
+                    
+                    <div class="code-example">
+                        <pre>POST /api/challenge
+Content-Type: application/json
+
+{
+  "evrmore_address": "EVxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+}</pre>
+                    </div>
+                    
+                    <div class="test-form">
+                        <div class="evr-form-group">
+                            <label for="challenge-address" class="evr-label">Evrmore Address</label>
+                            <input type="text" id="challenge-address" class="evr-input" placeholder="EVxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx">
+                        </div>
+                        <button id="challenge-button" class="evr-button">Generate Challenge</button>
+                    </div>
+                    
+                    <div class="evr-result" id="challenge-result"></div>
+                </div>
+                
+                <div class="api-section">
+                    <h3 class="evr-subtitle">2. Authenticate</h3>
+                    <p>Authenticate with a signed challenge.</p>
+                    
+                    <div class="code-example">
+                        <pre>POST /api/authenticate
+Content-Type: application/json
+
+{
+  "evrmore_address": "EVxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "challenge": "Sign this message to authenticate with Evrmore: EVxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx:1234567890:abcdef",
+  "signature": "Base64EncodedSignature..."
+}</pre>
+                    </div>
+                    
+                    <div class="test-form">
+                        <div class="evr-form-group">
+                            <label for="auth-address" class="evr-label">Evrmore Address</label>
+                            <input type="text" id="auth-address" class="evr-input" placeholder="EVxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx">
+                        </div>
+                    </div>
+                    
+                    <div class="evr-form-group">
+                        <label for="auth-challenge" class="evr-label">Challenge</label>
+                        <input type="text" id="auth-challenge" class="evr-input" placeholder="Sign this message...">
+                    </div>
+                    
+                    <div class="evr-form-group">
+                        <label for="auth-signature" class="evr-label">Signature</label>
+                        <input type="text" id="auth-signature" class="evr-input" placeholder="Base64EncodedSignature...">
+                    </div>
+                    
+                    <button id="auth-button" class="evr-button">Authenticate</button>
+                    
+                    <div class="evr-result" id="auth-result"></div>
+                </div>
+                
+                <div class="api-section">
+                    <h3 class="evr-subtitle">3. Validate Token</h3>
+                    <p>Validate a JWT token.</p>
+                    
+                    <div class="code-example">
+                        <pre>GET /api/validate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</pre>
+                    </div>
+                    
+                    <div class="evr-form-group">
+                        <label for="validate-token" class="evr-label">JWT Token</label>
+                        <input type="text" id="validate-token" class="evr-input" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+                    </div>
+                    
+                    <button id="validate-button" class="evr-button">Validate Token</button>
+                    
+                    <div class="evr-result" id="validate-result"></div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="integration" class="demo-section">
+            <h2 class="evr-title">Integration Guide</h2>
+            <p class="evr-subtitle">Add Evrmore authentication to your application</p>
+            
+            <div class="evr-card">
+                <h3 class="evr-subtitle">1. Include the JS and CSS files</h3>
+                <div class="code-example">
+                    <pre>&lt;link rel="stylesheet" href="https://accounts.evrmore.org/static/accounts.css"&gt;
+&lt;script src="https://accounts.evrmore.org/static/accounts.js"&gt;&lt;/script&gt;</pre>
+                </div>
+                
+                <h3 class="evr-subtitle">2. Add an authentication button</h3>
+                <div class="code-example">
+                    <pre>&lt;button class="evr-button evr-auth-button"&gt;Sign in with Evrmore&lt;/button&gt;</pre>
+                </div>
+                
+                <h3 class="evr-subtitle">3. Initialize the library</h3>
+                <div class="code-example">
+                    <pre>&lt;script&gt;
+document.addEventListener('DOMContentLoaded', function() {
+    EvrmoreAccounts.init({
+        apiUrl: 'https://accounts.evrmore.org/api',
+        debug: true
+    });
+});
+&lt;/script&gt;</pre>
+                </div>
+                
+                <h3 class="evr-subtitle">4. Handle authentication events</h3>
+                <div class="code-example">
+                    <pre>&lt;script&gt;
+document.addEventListener('evrmoreAuthChange', function(event) {
+    const { isAuthenticated, user } = event.detail;
+    
+    if (isAuthenticated) {
+        console.log('User is authenticated:', user);
+    } else {
+        console.log('User is not authenticated');
+    }
+});
+&lt;/script&gt;</pre>
+                </div>
+            </div>
+        </section>
+        
+        <div class="footer">
+            <p>&copy; 2023 Manticore Technologies | <a href="https://manticore.technology" target="_blank">manticore.technology</a></p>
+        </div>
+    </main>
+    
+    <!-- Initialize the library -->
+    <script type="application/json" id="evr-config">
+        {
+            "apiUrl": "/api",
+            "debug": true
+        }
+    </script>
+    
+    <script src="/static/accounts.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const authUI = document.getElementById('auth-ui');
+            const userProfile = document.getElementById('user-profile');
+            const logoutButton = document.getElementById('logout-button');
+            
+            // API test elements
+            const challengeAddressInput = document.getElementById('challenge-address');
+            const challengeButton = document.getElementById('challenge-button');
+            const challengeResult = document.getElementById('challenge-result');
+            
+            const authAddressInput = document.getElementById('auth-address');
+            const authChallengeInput = document.getElementById('auth-challenge');
+            const authSignatureInput = document.getElementById('auth-signature');
+            const authButton = document.getElementById('auth-button');
+            const authResult = document.getElementById('auth-result');
+            
+            const validateTokenInput = document.getElementById('validate-token');
+            const validateButton = document.getElementById('validate-button');
+            const validateResult = document.getElementById('validate-result');
+            
+            // Listen for authentication changes
+            document.addEventListener('evrmoreAuthChange', function(event) {
+                const { isAuthenticated, user } = event.detail;
+                
+                if (isAuthenticated) {
+                    // Update user profile
+                    document.getElementById('user-name').textContent = user?.username || 'User';
+                    document.getElementById('user-address').textContent = user?.evrmore_address || '-';
+                    document.getElementById('auth-token').textContent = EvrmoreAccounts.getToken();
+                    
+                    // Format expiration date
+                    const token = EvrmoreAccounts.getToken();
+                    if (token) {
+                        validateTokenInput.value = token;
+                    }
+                    
+                    // Show profile, hide auth UI
+                    authUI.style.display = 'none';
+                    userProfile.style.display = 'block';
+                } else {
+                    // Show auth UI, hide profile
+                    authUI.style.display = 'block';
+                    userProfile.style.display = 'none';
+                }
+            });
+            
+            // Logout button
+            logoutButton.addEventListener('click', function() {
+                EvrmoreAccounts.logout()
+                    .then(() => {
+                        console.log('Logged out successfully');
+                    })
+                    .catch(error => {
+                        console.error('Error logging out:', error);
+                    });
+            });
+            
+            // API test: Generate Challenge
+            challengeButton.addEventListener('click', function() {
+                const address = challengeAddressInput.value.trim();
+                if (!address) {
+                    challengeResult.textContent = 'Please enter an Evrmore address';
+                    return;
+                }
+                
+                challengeResult.textContent = 'Loading...';
+                
+                EvrmoreAccounts.generateChallenge(address)
+                    .then(result => {
+                        challengeResult.textContent = JSON.stringify(result, null, 2);
+                        
+                        // Auto-fill the authentication form
+                        authAddressInput.value = address;
+                        authChallengeInput.value = result.challenge;
+                    })
+                    .catch(error => {
+                        challengeResult.textContent = `Error: ${error.message}`;
+                    });
+            });
+            
+            // API test: Authenticate
+            authButton.addEventListener('click', function() {
+                const address = authAddressInput.value.trim();
+                const challenge = authChallengeInput.value.trim();
+                const signature = authSignatureInput.value.trim();
+                
+                if (!address || !challenge || !signature) {
+                    authResult.textContent = 'Please fill in all fields';
+                    return;
+                }
+                
+                authResult.textContent = 'Loading...';
+                
+                EvrmoreAccounts.authenticate(address, challenge, signature)
+                    .then(result => {
+                        authResult.textContent = JSON.stringify(result, null, 2);
+                        
+                        // Auto-fill the validate form
+                        if (result.token) {
+                            validateTokenInput.value = result.token;
+                        }
+                    })
+                    .catch(error => {
+                        authResult.textContent = `Error: ${error.message}`;
+                    });
+            });
+            
+            // API test: Validate Token
+            validateButton.addEventListener('click', function() {
+                const token = validateTokenInput.value.trim();
+                if (!token) {
+                    validateResult.textContent = 'Please enter a JWT token';
+                    return;
+                }
+                
+                validateResult.textContent = 'Loading...';
+                
+                EvrmoreAccounts.validateToken(token)
+                    .then(result => {
+                        validateResult.textContent = JSON.stringify(result, null, 2);
+                    })
+                    .catch(error => {
+                        validateResult.textContent = `Error: ${error.message}`;
+                    });
+            });
+        });
+    </script>
+</body>
+</html> 

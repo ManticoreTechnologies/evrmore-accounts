@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evrmore Accounts - Documentation</title>
+    <link rel="stylesheet" href="{{ url_for('serve_static', path='style.css') }}">
+    <style>
+        .docs-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .docs-sidebar {
+            position: sticky;
+            top: 2rem;
+        }
+        
+        .docs-sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .docs-sidebar li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .docs-sidebar a {
+            display: block;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+        
+        .docs-sidebar a:hover {
+            background-color: var(--light-background);
+        }
+        
+        .docs-content {
+            padding-left: 2rem;
+        }
+        
+        .docs-section {
+            margin-bottom: 3rem;
+        }
+        
+        .docs-section h2 {
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .docs-section h3 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .code-block {
+            background-color: var(--code-background);
+            border-radius: 4px;
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .code-block pre {
+            margin: 0;
+        }
+        
+        .code-block code {
+            font-family: monospace;
+        }
+        
+        .terminal {
+            background-color: #1e1e1e;
+            color: #f8f8f8;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .terminal pre {
+            margin: 0;
+            color: #f8f8f8;
+        }
+        
+        .step {
+            display: flex;
+            margin-bottom: 2rem;
+        }
+        
+        .step-number {
+            flex-shrink: 0;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            margin-top: 0.25rem;
+        }
+        
+        .step-content {
+            flex-grow: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .docs-container {
+                flex-direction: column;
+            }
+            
+            .docs-sidebar {
+                position: static;
+                margin-bottom: 2rem;
+            }
+            
+            .docs-content {
+                padding-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="site-logo">
+                <img src="{{ url_for('serve_static', path='evrmore-logo.svg') }}" alt="Evrmore">
+                <span>Evrmore Accounts</span>
+            </div>
+            <nav class="site-nav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/demo">Demo</a></li>
+                    <li><a href="/docs" class="active">Docs</a></li>
+                    <li><a href="/integration">Integration</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="docs-container">
+            <h1>Evrmore Accounts Documentation</h1>
+            <p class="lead">A complete white-label authentication solution for web applications using Evrmore blockchain.</p>
+            
+            <div class="docs-section" id="overview">
+                <h2>Overview</h2>
+                <p>Evrmore Accounts is an all-in-one authentication solution that enables web applications to implement secure, blockchain-based authentication with minimal effort. It uses the Evrmore blockchain to authenticate users through cryptographic signatures, eliminating the need for passwords and centralized identity management.</p>
+                
+                <h3>Key Features</h3>
+                <ul>
+                    <li><strong>White-Label Solution:</strong> Fully customizable and brandable authentication system</li>
+                    <li><strong>RESTful API:</strong> Complete backend authentication API</li>
+                    <li><strong>JavaScript Client Library:</strong> Easy-to-integrate frontend library</li>
+                    <li><strong>Complete Frontend Components:</strong> Ready-made UI components for authentication</li>
+                    <li><strong>No Passwords:</strong> Authentication based on blockchain cryptography</li>
+                    <li><strong>Self-hosted:</strong> Run it on your own servers for maximum privacy and control</li>
+                </ul>
+            </div>
+            
+            <div class="docs-section" id="installation">
+                <h2>Installation</h2>
+                <p>Evrmore Accounts can be installed using pip:</p>
+                
+                <div class="terminal">
+                    <pre>pip3 install evrmore-accounts</pre>
+                </div>
+                
+                <h3>Requirements</h3>
+                <ul>
+                    <li>Python 3.7 or later</li>
+                    <li>Flask 2.0.0 or later</li>
+                    <li>evrmore-authentication 0.3.0 or later</li>
+                </ul>
+            </div>
+            
+            <div class="docs-section" id="getting-started">
+                <h2>Getting Started</h2>
+                
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Start the Evrmore Accounts server</h3>
+                        <p>After installation, you can start the Evrmore Accounts server with:</p>
+                        
+                        <div class="terminal">
+                            <pre>python3 -m evrmore_accounts.app</pre>
+                        </div>
+                        
+                        <p>This will start a Flask server on <code>localhost:5000</code> with both the API endpoints and a web interface.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Access the Demo Interface</h3>
+                        <p>Open <code>http://localhost:5000/demo</code> in your web browser to see the authentication flow in action.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>View the Integration Example</h3>
+                        <p>Visit <code>http://localhost:5000/example</code> to see a simple example of how to integrate Evrmore Accounts into your web application.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="docs-section" id="configuration">
+                <h2>Configuration</h2>
+                <p>Evrmore Accounts can be configured using environment variables:</p>
+                
+                <div class="code-block">
+                    <pre><code># Server configuration
+PORT=5000
+HOST=0.0.0.0
+DEBUG=false
+
+# Security
+SECRET_KEY=your-secret-key-here
+
+# Database settings
+DATABASE_URL=sqlite:///evrmore_accounts.db</code></pre>
+                </div>
+                
+                <p>You can create a <code>.env</code> file in your project directory with these variables, and they will be automatically loaded when the server starts.</p>
+            </div>
+            
+            <div class="docs-section" id="deployment">
+                <h2>Deployment</h2>
+                <p>For production deployments, we recommend using a WSGI server like Gunicorn:</p>
+                
+                <div class="terminal">
+                    <pre>pip3 install gunicorn
+gunicorn "evrmore_accounts.app:create_app()" --bind 0.0.0.0:5000</pre>
+                </div>
+                
+                <h3>Deploying with Docker</h3>
+                <p>You can also deploy Evrmore Accounts using Docker:</p>
+                
+                <div class="terminal">
+                    <pre>docker pull manticoretechnologies/evrmore-accounts
+docker run -p 5000:5000 manticoretechnologies/evrmore-accounts</pre>
+                </div>
+                
+                <h3>Nginx Configuration</h3>
+                <p>For production deployments, we recommend using Nginx as a reverse proxy:</p>
+                
+                <div class="code-block">
+                    <pre><code>server {
+    listen 80;
+    server_name auth.yourdomain.com;
+
+    location / {
+        proxy_pass http://localhost:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}</code></pre>
+                </div>
+            </div>
+            
+            <div class="docs-section" id="customization">
+                <h2>Customization</h2>
+                <p>Evrmore Accounts is designed to be a white-label solution that you can fully customize to match your brand.</p>
+                
+                <h3>Styling</h3>
+                <p>You can customize the look and feel by modifying the CSS files in the <code>evrmore_accounts/static</code> directory.</p>
+                
+                <h3>Templates</h3>
+                <p>The HTML templates can be found in the <code>evrmore_accounts/templates</code> directory. You can modify these to match your brand's design.</p>
+                
+                <h3>Frontend Library</h3>
+                <p>The JavaScript client library (<code>evrmore-accounts.js</code>) can be customized to change the authentication flow or add additional features.</p>
+                
+                <h3>API Customization</h3>
+                <p>You can extend the API by subclassing the <code>AccountsServer</code> class and adding your own endpoints.</p>
+            </div>
+            
+            <div class="docs-section" id="api-reference">
+                <h2>API Reference</h2>
+                <p>Evrmore Accounts provides a RESTful API for authentication:</p>
+                
+                <h3>Challenge Generation</h3>
+                <div class="code-block">
+                    <pre><code>POST /api/challenge
+Content-Type: application/json
+
+{
+  "evrmore_address": "EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc"
+}
+
+Response:
+{
+  "challenge": "Sign this message to authenticate with Evrmore: EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc:1741814609:d47fc13f26226910",
+  "expires_at": "2025-03-12T13:33:29.077793"
+}</code></pre>
+                </div>
+                
+                <h3>Authentication</h3>
+                <div class="code-block">
+                    <pre><code>POST /api/authenticate
+Content-Type: application/json
+
+{
+  "evrmore_address": "EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc",
+  "challenge": "Sign this message to authenticate with Evrmore: EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc:1741814609:d47fc13f26226910",
+  "signature": "H/SignatureValueHere..."
+}
+
+Response:
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "expires_at": "2025-03-19T13:33:29.077793",
+  "user": {
+    "id": "12345",
+    "evrmore_address": "EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc"
+  }
+}</code></pre>
+                </div>
+                
+                <h3>Token Validation</h3>
+                <div class="code-block">
+                    <pre><code>GET /api/validate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+Response:
+{
+  "valid": true,
+  "expires_at": "2025-03-19T13:33:29.077793",
+  "evrmore_address": "EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc"
+}</code></pre>
+                </div>
+                
+                <h3>User Information</h3>
+                <div class="code-block">
+                    <pre><code>GET /api/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+Response:
+{
+  "id": "12345",
+  "evrmore_address": "EViF16aYCetDH56MyKCcxfyeZ3F7Ao7ZBc",
+  "username": null,
+  "email": null,
+  "is_active": true
+}</code></pre>
+                </div>
+                
+                <h3>Sign Out</h3>
+                <div class="code-block">
+                    <pre><code>POST /api/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+Response:
+{
+  "success": true,
+  "message": "Successfully logged out"
+}</code></pre>
+                </div>
+            </div>
+            
+            <div class="docs-section" id="javascript-library">
+                <h2>JavaScript Library</h2>
+                <p>The Evrmore Accounts JavaScript library provides client-side functionality for authentication.</p>
+                
+                <h3>Including the Library</h3>
+                <div class="code-block">
+                    <pre><code>&lt;script src="/static/evrmore-accounts.js"&gt;&lt;/script&gt;</code></pre>
+                </div>
+                
+                <h3>Initialization</h3>
+                <div class="code-block">
+                    <pre><code>// Initialize Evrmore Accounts
+EvrmoreAccounts.init({
+  apiUrl: '/api',
+  autoRefresh: true,
+  debug: false
+});</code></pre>
+                </div>
+                
+                <h3>Creating a Sign-In Button</h3>
+                <div class="code-block">
+                    <pre><code>// Create a sign-in button
+EvrmoreAccounts.initSignInButton('#sign-in-button');</code></pre>
+                </div>
+                
+                <h3>Listening for Authentication State Changes</h3>
+                <div class="code-block">
+                    <pre><code>// Listen for authentication state changes
+EvrmoreAccounts.onAuthStateChanged(function(user) {
+  if (user) {
+    console.log('User is signed in:', user);
+    // Show authenticated UI
+  } else {
+    console.log('User is signed out');
+    // Show sign-in UI
+  }
+});</code></pre>
+                </div>
+                
+                <h3>Signing Out</h3>
+                <div class="code-block">
+                    <pre><code>// Sign out the user
+EvrmoreAccounts.signOut();</code></pre>
+                </div>
+                
+                <h3>Advanced: Custom Challenge Handler</h3>
+                <div class="code-block">
+                    <pre><code>// Custom challenge handler
+EvrmoreAccounts.initSignInButton('#sign-in-button', {
+  onChallenge: function(challenge, completeAuth) {
+    // Display the challenge to the user
+    document.getElementById('challenge-text').textContent = challenge.challenge;
+    
+    // Show challenge UI
+    document.getElementById('challenge-container').classList.remove('hidden');
+    
+    // Submit button handler
+    document.getElementById('submit-signature-button').onclick = function() {
+      const signature = document.getElementById('signature-input').value;
+      completeAuth(signature);
+    };
+  }
+});</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="copyright">
+                &copy; 2023 <a href="https://manticore.technology" target="_blank">Manticore Technologies</a>
+            </div>
+            <ul class="footer-links">
+                <li><a href="https://manticore.technology" target="_blank">Website</a></li>
+                <li><a href="https://github.com/manticoretechnologies" target="_blank">GitHub</a></li>
+                <li><a href="mailto:dev@manticore.technology">Contact</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html> 
