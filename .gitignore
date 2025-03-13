@@ -14,7 +14,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -108,3 +107,8 @@ venv.bak/
 .vscode/
 *.swp
 *.swo 
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/build/

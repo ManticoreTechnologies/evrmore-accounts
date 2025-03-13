@@ -1,170 +1,104 @@
 #!/usr/bin/env python3
 """
-Evrmore Accounts Application
+Evrmore Accounts API Application
 
-This module provides a Flask application that serves both the API endpoints
-and a web interface for the Evrmore Accounts service.
+This module initializes the Flask application for the Evrmore Accounts API.
 """
 import os
 import logging
-from pathlib import Path
-from typing import Optional
+from flask import Flask, jsonify
+from flask_cors import CORS
+from flask_jwt_extended import JWTManager
 
-from dotenv import load_dotenv
-from flask import Flask, render_template, send_from_directory, url_for
+# Import API components
+from evrmore_accounts.api.auth import auth_blueprint
+from evrmore_accounts.api.user import user_blueprint
+from evrmore_accounts.api.health import health_blueprint
+from evrmore_accounts.api.twofa import twofa_blueprint
 
-from evrmore_accounts.api import AccountsServer
+# Import error handlers and security components
+from evrmore_accounts.api.errors import init_error_handlers
+from evrmore_accounts.server_security import init_security
 
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
-logger = logging.getLogger("evrmore_accounts.app")
+logger = logging.getLogger("evrmore_accounts")
 
-# Load environment variables
-load_dotenv()
-
-# Get debug mode from environment
-DEBUG = os.getenv("DEBUG", "false").lower() in ("true", "1", "t", "yes")
-
-
-class EvrmoreAccountsApp:
-    """Flask application for Evrmore Accounts."""
-
-    def __init__(self, debug: bool = DEBUG):
-        """Initialize the application.
-
-        Args:
-            debug: Enable debug mode
-        """
-        self.debug = debug
-        logger.info(f"Initializing Evrmore Accounts App (debug={debug})")
-
-        # Initialize API server
-        self.accounts_server = AccountsServer(debug=debug)
-
-        # Get package root directory
-        self.package_dir = Path(__file__).parent
-        self.root_dir = self.package_dir.parent
-        
-        # Create Flask app
-        self.app = Flask(
-            __name__,
-            static_folder=str(self.package_dir / "static"),
-            template_folder=str(self.package_dir / "templates")
-        )
-        self.app.config["DEBUG"] = debug
-        self.app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "dev-key")
-        
-        # Use the API server's Flask app routes
-        api_app = self.accounts_server.get_app()
-        
-        # Copy all routes from the API app to our main app
-        for rule in api_app.url_map.iter_rules():
-            if rule.endpoint != 'static' and rule.endpoint in api_app.view_functions:
-                view_func = api_app.view_functions[rule.endpoint]
-                
-                # Register the route with our app
-                self.app.add_url_rule(
-                    rule.rule,
-                    endpoint=rule.endpoint,
-                    view_func=view_func,
-                    methods=rule.methods
-                )
-        
-        # Register web routes
-        self._register_web_routes()
-        
-        logger.info("Evrmore Accounts App initialized")
-
-    def _register_web_routes(self):
-        """Register web routes with the Flask app."""
-        
-        @self.app.route("/")
-        def index():
-            """Render the index page."""
-            return render_template("index.html")
-        
-        @self.app.route("/demo")
-        def demo():
-            """Render the demo page."""
-            return render_template("example.html")
-        
-        @self.app.route("/example")
-        def example():
-            """Render the simple integration example page."""
-            example_path = self.root_dir / "simple_integration_example.html"
-            if example_path.exists():
-                with open(example_path, 'r') as f:
-                    content = f.read()
-                return content
-            else:
-                return render_template("example.html")
-        
-        @self.app.route("/static/<path:path>")
-        def serve_static(path):
-            """Serve static files."""
-            return send_from_directory(self.app.static_folder, path)
-        
-        @self.app.route("/docs")
-        def docs():
-            """Render the documentation page."""
-            return render_template("docs.html")
-        
-        @self.app.route("/integration")
-        def integration():
-            """Render the integration guide page."""
-            return render_template("integration.html")
-        
-        @self.app.route("/admin")
-        def admin():
-            """Render the admin dashboard page."""
-            return render_template("admin.html")
-        
-        @self.app.context_processor
-        def inject_urls():
-            """Inject URLs into templates."""
-            return {
-                'url_for_static': lambda filename: url_for('serve_static', path=filename)
-            }
-
-    def run(self, host: str = "0.0.0.0", port: int = 5000):
-        """Run the application.
-
-        Args:
-            host: Host to bind to
-            port: Port to run on
-        """
-        logger.info(f"Starting Evrmore Accounts App on {host}:{port}")
-        self.app.run(host=host, port=port, debug=self.debug)
-
-    def get_app(self) -> Flask:
-        """Get the Flask application.
-
-        Returns:
-            Flask application
-        """
-        return self.app
-
-
-def create_app(debug: bool = DEBUG) -> Flask:
-    """Create a new Flask application.
-
+def create_app(test_config=None):
+    """Create and configure the Flask application
+    
     Args:
-        debug: Enable debug mode
-
+        test_config: Optional test configuration
+        
     Returns:
-        Flask application
+        Configured Flask application
     """
-    return EvrmoreAccountsApp(debug=debug).get_app()
-
+    # Create Flask app
+    app = Flask(__name__, instance_relative_config=True)
+    
+    # Check if we're in testing mode
+    testing = os.environ.get("TESTING", "").lower() in ("true", "1", "yes")
+    
+    # Default configuration
+    app.config.from_mapping(
+        SECRET_KEY=os.environ.get("SECRET_KEY", "dev-key-change-in-production"),
+        JWT_SECRET_KEY=os.environ.get("JWT_SECRET_KEY", "jwt-secret-change-in-production"),
+        JWT_ACCESS_TOKEN_EXPIRES=3600,  # 1 hour
+        JWT_ALGORITHM="HS256",
+        DEBUG=os.environ.get("DEBUG", "false").lower() == "true",
+        RATE_LIMIT_GLOBAL=int(os.environ.get("RATE_LIMIT_GLOBAL", "100")),
+        RATE_LIMIT_AUTH=int(os.environ.get("RATE_LIMIT_AUTH", "5")),
+        RATE_LIMIT_CHALLENGE=int(os.environ.get("RATE_LIMIT_CHALLENGE", "10")),
+        RATE_LIMIT_USER=int(os.environ.get("RATE_LIMIT_USER", "30")),
+        TESTING=testing
+    )
+    
+    # Load test config if provided
+    if test_config:
+        app.config.update(test_config)
+    
+    # If in testing mode, set stricter rate limits to make rate limiting more detectable
+    if testing:
+        app.config.update({
+            "RATE_LIMIT_GLOBAL": 100,
+            "RATE_LIMIT_AUTH": 30,
+            "RATE_LIMIT_CHALLENGE": 30,
+            "RATE_LIMIT_USER": 30,
+            "DEBUG": True
+        })
+        logger.info("Running in TEST mode with adjusted rate limits")
+    
+    # Initialize CORS
+    CORS(app, supports_credentials=True)
+    
+    # Initialize JWT
+    jwt = JWTManager(app)
+    
+    # Initialize security components
+    security = init_security(app)
+    app.security = security
+    
+    # Initialize custom error handlers
+    init_error_handlers(app)
+    
+    # Register token callbacks for JWT
+    @jwt.token_in_blocklist_loader
+    def check_if_token_revoked(jwt_header, jwt_payload):
+        jti = jwt_payload["jti"]
+        session_manager = app.security["session_manager"]
+        return session_manager.is_token_revoked(jti)
+    
+    # Register blueprints
+    app.register_blueprint(auth_blueprint, url_prefix="/api/auth")
+    app.register_blueprint(user_blueprint, url_prefix="/api")
+    app.register_blueprint(health_blueprint, url_prefix="/api")
+    app.register_blueprint(twofa_blueprint, url_prefix="/api/auth/2fa")
+    
+    return app
 
 if __name__ == "__main__":
-    # Get port from environment or use default
-    port = int(os.getenv("PORT", 5000))
-    host = os.getenv("HOST", "0.0.0.0")
-    
-    # Create and run app
-    app = EvrmoreAccountsApp(debug=DEBUG)
-    app.run(host=host, port=port) 
+    app = create_app()
+    app.run(debug=app.config["DEBUG"], host="0.0.0.0", port=5000) 

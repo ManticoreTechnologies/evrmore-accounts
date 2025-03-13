@@ -23,7 +23,7 @@ with open("README.md", "r") as f:
 setup(
     name="evrmore-accounts",
     version=version,
-    description="Evrmore blockchain-based authentication for web applications",
+    description="Evrmore blockchain-based authentication REST API for web applications",
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="Manticore Technologies",
@@ -33,8 +33,6 @@ setup(
     include_package_data=True,
     package_data={
         "evrmore_accounts": [
-            "static/*",
-            "templates/*",
             "data/*"
         ]
     },

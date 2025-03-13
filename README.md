@@ -1,28 +1,30 @@
 # Evrmore Accounts
 
-<div align="center">
-  <img src="evrmore_accounts/static/evrmore-logo.svg" alt="Evrmore Accounts" width="250">
-  <h1>Evrmore Accounts</h1>
-  
-  <p>A secure wallet-based authentication system for Evrmore blockchain applications</p>
-
-  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-  [![Python 3.7+](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
-</div>
+A RESTful API service for Evrmore blockchain-based authentication.
 
 ## Overview
 
-Evrmore Accounts is a Python package that provides wallet-based authentication using Evrmore blockchain. It builds on the [Evrmore Authentication](https://github.com/manticoretechnologies/evrmore-authentication) library to provide a complete account management system for web applications.
+Evrmore Accounts provides a secure REST API for authenticating users with Evrmore blockchain wallets. This is a backend-only service with no frontend components.
 
-## Features
+Key features:
+- Secure blockchain-based authentication using Evrmore wallet signatures
+- Two-factor authentication support (TOTP and WebAuthn)
+- JWT-based token authentication with enhanced security
+- User profile management
+- High-performance API built with Flask and Gunicorn
+- Advanced security features including rate limiting and security headers
 
-- **🔑 Wallet-based authentication** - Users sign challenges with their Evrmore wallet
-- **🔒 JWT token management** - Secure session handling with JSON Web Tokens
-- **📁 SQLite backend** - Simple, file-based database for session and challenge storage
-- **👤 Automatic user management** - Users are created on first authentication
-- **🌐 Complete API server** - Ready-to-use API server for authentication endpoints
-- **🖥️ Demo web interface** - Example application showing the complete authentication flow
-- **📱 JavaScript client library** - Easy integration with web applications
+## Security Features
+
+Evrmore Accounts includes comprehensive security features:
+
+- **Security Headers**: Protection against XSS, clickjacking, and other web vulnerabilities
+- **Rate Limiting**: Advanced IP-based rate limiting with whitelist/blacklist support
+- **Session Management**: Tracking and management of active user sessions
+- **Enhanced JWT Security**: Device fingerprinting and token revocation
+- **Two-Factor Authentication**: TOTP and WebAuthn (FIDO2) support with backup codes
+- **Standardized Error Handling**: Consistent error responses with appropriate status codes
+- **Enhanced Logging**: Detailed logging of security events for forensic analysis
 
 ## Installation
 
@@ -30,137 +32,113 @@ Evrmore Accounts is a Python package that provides wallet-based authentication u
 pip3 install evrmore-accounts
 ```
 
-## Quick Start
+## Running the API Server
 
-### Running the API Server (Development)
-
-```bash
-python3 -m evrmore_accounts.app
-```
-
-This will start a Flask application with both the API endpoints and a web interface available at http://localhost:5000.
-
-### Running with Gunicorn (Production)
-
-For production deployments, we recommend using Gunicorn:
+### Using Gunicorn (Recommended for Production)
 
 ```bash
-# Basic usage
-gunicorn --bind 0.0.0.0:5000 --workers 4 wsgi:app
+# Install gunicorn if not already installed
+pip3 install gunicorn
 
-# Or use the provided script
+# Run with the provided script
 ./run_gunicorn.sh
+
+# Or manually
+gunicorn --bind 0.0.0.0:5000 --workers 4 --timeout 120 wsgi:app
 ```
 
-You can customize the configuration by setting environment variables:
+### Using Flask Development Server (Development Only)
 
 ```bash
-# Custom configuration
-export PORT=8000
-export WORKERS=2
-export TIMEOUT=60
-export JWT_SECRET=your_secure_secret_key
+# Set environment variables
+export FLASK_APP=evrmore_accounts.app:create_app
+export FLASK_ENV=development
 
-# Run with custom configuration
-./run_gunicorn.sh
+# Run the development server
+flask run
 ```
-
-For more details, see the [Deployment Guide](docs/guide/deployment.md).
-
-### Docker Deployment
-
-```bash
-# Build the Docker image
-docker build -t evrmore-accounts .
-
-# Run the container
-docker run -p 5000:5000 evrmore-accounts
-```
-
-### Running the Demo
-
-Open `http://localhost:5000/demo` in your web browser to see the authentication flow in action.
-
-### Integration Example
-
-Check out the `simple_integration_example.html` file for an example of how to integrate Evrmore Accounts with your web application.
 
 ## API Endpoints
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/challenge` | POST | Generate a challenge for a user |
-| `/api/authenticate` | POST | Authenticate with a signed challenge |
-| `/api/validate` | GET | Validate a JWT token |
-| `/api/user` | GET | Get authenticated user information |
-| `/api/logout` | POST | Invalidate a JWT token (logout) |
+All API endpoints are prefixed with `/api`.
 
-## JavaScript Library
+### Authentication
 
-Add the Evrmore Accounts JavaScript library to your web application:
+- `POST /api/challenge` - Generate a challenge for authentication
+- `POST /api/authenticate` - Verify signature and authenticate
+- `GET /api/validate` - Validate an existing token
+- `POST /api/logout` - Log out (invalidate token)
 
-```html
-<script src="https://cdn.manticore.technology/static/evrmore-accounts.js"></script>
+### User Management
+
+- `GET /api/user` - Get the authenticated user's profile
+- `PUT /api/user` - Update user profile
+- `POST /api/user/backup-address` - Add a backup Evrmore address
+
+### Two-Factor Authentication (2FA)
+
+- `POST /api/auth/2fa/totp/setup` - Set up TOTP-based 2FA
+- `POST /api/auth/2fa/totp/verify` - Verify a TOTP code
+- `POST /api/auth/2fa/totp/enable` - Enable TOTP for the account
+- `POST /api/auth/2fa/totp/disable` - Disable TOTP for the account
+- `GET /api/auth/2fa/totp/status` - Get TOTP status
+- `GET /api/auth/2fa/status` - Get overall 2FA status
+- `GET /api/auth/2fa/recovery-codes` - Get recovery codes for 2FA
+- `POST /api/auth/2fa/recovery-codes/verify` - Verify a recovery code
+
+### WebAuthn (FIDO2) Support
+
+- `POST /api/auth/2fa/webauthn/register-options` - Get registration options for WebAuthn
+- `POST /api/auth/2fa/webauthn/register-verify` - Verify WebAuthn registration
+- `POST /api/auth/2fa/webauthn/authenticate-options` - Get authentication options for WebAuthn
+- `POST /api/auth/2fa/webauthn/authenticate-verify` - Verify WebAuthn authentication
+- `GET /api/auth/2fa/webauthn/credentials` - Get registered WebAuthn credentials
+- `DELETE /api/auth/2fa/webauthn/credentials/{credential_id}` - Remove a WebAuthn credential
+
+### Session Management
+
+- `GET /api/sessions` - Get all active sessions for the current user
+- `DELETE /api/sessions/{session_id}` - Revoke a specific session
+- `DELETE /api/sessions` - Revoke all sessions except the current one
+
+### Health Check
+
+- `GET /api/health` - Check API health status
+
+## Configuration
+
+Configuration is managed through environment variables:
+
+```
+# Required
+JWT_SECRET_KEY=your-secure-jwt-secret
+
+# Optional
+DEBUG=false
+PORT=5000
+HOST=0.0.0.0
+WORKERS=4
+TIMEOUT=120
+RATE_LIMIT_GLOBAL=100  # Requests per minute globally
+RATE_LIMIT_AUTH=5      # Requests per minute for auth endpoints
+RATE_LIMIT_CHALLENGE=10 # Requests per minute for challenge endpoint
+RATE_LIMIT_USER=30     # Requests per minute for user endpoints
 ```
 
-Initialize the library and create a sign-in button:
+## Security Testing
 
-```javascript
-// Initialize Evrmore Accounts
-EvrmoreAccounts.init({
-  apiUrl: 'https://auth.manticore.technology/api',
-  autoRefresh: true,
-  debug: false
-});
-
-// Create a sign-in button
-EvrmoreAccounts.initSignInButton('#sign-in-button');
-
-// Listen for authentication state changes
-EvrmoreAccounts.onAuthStateChanged(function(user) {
-  if (user) {
-    console.log('User is signed in:', user);
-    // Show authenticated UI
-  } else {
-    console.log('User is signed out');
-    // Show sign-in UI
-  }
-});
-```
-
-## Development
-
-### Setup Development Environment
+The repository includes a security testing script that checks for proper implementation of security features:
 
 ```bash
-# Clone the repository
-git clone https://github.com/manticoretechnologies/evrmore-accounts.git
-cd evrmore-accounts
-
-# Create a virtual environment
-python3 -m venv venv
-source venv/bin/activate
-
-# Install dependencies
-pip3 install -e .
+python3 test_security.py --url http://localhost:5000
 ```
-
-### Running Tests
-
-```bash
-python3 test_evrmore_accounts.py
-```
-
-## Documentation
-
-For comprehensive documentation, visit [our documentation site](https://manticoretechnologies.github.io/evrmore-accounts/).
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Contact
 
-- Website: [manticore.technology](https://manticore.technology)
+- Manticore Technologies - [manticore.technology](https://manticore.technology)
 - GitHub: [github.com/manticoretechnologies](https://github.com/manticoretechnologies)
 - Email: [dev@manticore.technology](mailto:dev@manticore.technology) 

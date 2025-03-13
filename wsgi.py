@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-WSGI entry point for the Evrmore Accounts application.
-This file is used to run the application with Gunicorn.
+WSGI entry point for the Evrmore Accounts REST API.
+This file is used to run the API with Gunicorn.
 """
 import os
 from evrmore_accounts.app import create_app

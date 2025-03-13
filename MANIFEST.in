@@ -1,5 +1,3 @@
-recursive-include evrmore_accounts/static *
-recursive-include evrmore_accounts/templates *
 recursive-include evrmore_accounts/data *
 recursive-include docs *
 include LICENSE
@@ -10,4 +8,4 @@ include pyproject.toml
 include MANIFEST.in
 include mkdocs.yml
 include requirements.txt
-include Dockerfile 
+include run_gunicorn.sh 
