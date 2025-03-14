@@ -63,13 +63,13 @@ def create_app(test_config=None):
     # If in testing mode, set stricter rate limits to make rate limiting more detectable
     if testing:
         app.config.update({
-            "RATE_LIMIT_GLOBAL": 100,
-            "RATE_LIMIT_AUTH": 30,
-            "RATE_LIMIT_CHALLENGE": 30,
-            "RATE_LIMIT_USER": 30,
+            "RATE_LIMIT_GLOBAL": 10,  # Much stricter for tests
+            "RATE_LIMIT_AUTH": 5,     # Strict enough to be detected in tests
+            "RATE_LIMIT_CHALLENGE": 5, # Strict enough to be detected in tests  
+            "RATE_LIMIT_USER": 10,    # Strict enough to be detected in tests
             "DEBUG": True
         })
-        logger.info("Running in TEST mode with adjusted rate limits")
+        logger.info("Running in TEST mode with stricter rate limits")
     
     # Initialize CORS
     CORS(app, supports_credentials=True)
@@ -101,4 +101,18 @@ def create_app(test_config=None):
 
 if __name__ == "__main__":
     app = create_app()
-    app.run(debug=app.config["DEBUG"], host="0.0.0.0", port=5000) 
+    app.run(debug=app.config["DEBUG"], host="0.0.0.0", port=5000)
+
+def main():
+    """
+    Command line entry point for running the application.
+    This function is referenced in setup.py's entry_points.
+    """
+    app = create_app()
+    
+    # Get host and port from environment variables, with defaults
+    host = os.environ.get("HOST", "0.0.0.0")
+    port = int(os.environ.get("PORT", 5000))
+    debug = os.environ.get("DEBUG", "false").lower() == "true"
+    
+    app.run(debug=debug, host=host, port=port) 

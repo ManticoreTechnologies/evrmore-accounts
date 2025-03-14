@@ -1,29 +1,17 @@
 #!/usr/bin/env python3
 """
-Evrmore Accounts - Setup Script
-
-This script installs the Evrmore Accounts package.
+Evrmore Accounts Setup Script
 """
+
 from setuptools import setup, find_packages
-import os
 
-# Load version from package
-with open(os.path.join("evrmore_accounts", "__init__.py"), "r") as f:
-    for line in f:
-        if line.startswith("__version__"):
-            version = line.split("=")[1].strip().strip('"\'')
-            break
-    else:
-        version = "0.0.1"
-
-# Load README for long description
-with open("README.md", "r") as f:
-    long_description = f.read()
+with open("README.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
 
 setup(
     name="evrmore-accounts",
-    version=version,
-    description="Evrmore blockchain-based authentication REST API for web applications",
+    version="1.0.0",
+    description="A RESTful API service for Evrmore blockchain-based authentication",
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="Manticore Technologies",
@@ -31,27 +19,36 @@ setup(
     url="https://github.com/manticoretechnologies/evrmore-accounts",
     packages=find_packages(),
     include_package_data=True,
-    package_data={
-        "evrmore_accounts": [
-            "data/*"
-        ]
-    },
+    python_requires=">=3.8",
     install_requires=[
         "flask>=2.0.0",
         "flask-cors>=3.0.0",
-        "evrmore-authentication>=0.3.0",
-        "python-dotenv>=0.19.0"
+        "flask-jwt-extended>=4.4.0",
+        "pyotp>=2.8.0",
+        "python-dotenv>=0.19.0",
     ],
+    extras_require={
+        "dev": [
+            "pytest>=7.0.0",
+            "flake8>=6.0.0",
+            "black>=23.1.0",
+            "gunicorn>=20.1.0",
+            "gevent>=22.10.2",
+        ],
+    },
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
-        "Topic :: Software Development :: Libraries :: Python Modules",
     ],
-    python_requires=">=3.7",
+    entry_points={
+        "console_scripts": [
+            "evrmore-accounts=evrmore_accounts.app:main",
+            "evrmore-healthcheck=evrmore_accounts.healthcheck:main",
+        ],
+    },
 ) 

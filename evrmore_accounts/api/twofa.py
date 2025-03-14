@@ -134,7 +134,7 @@ def setup_totp():
     
     return jsonify({
         "success": True,
-        "secret": secret,
+                "secret": secret,
         "provisioning_uri": provisioning_uri
     })
 
@@ -145,8 +145,8 @@ def verify_totp():
     
     Request body:
         code: TOTP code to verify
-        
-    Returns:
+            
+        Returns:
         Verification result
     """
     user_id = get_jwt_identity()
@@ -206,16 +206,16 @@ def enable_totp():
     
     Request body:
         code: TOTP code to verify before enabling
-        
-    Returns:
+            
+        Returns:
         Success message and recovery codes
-    """
+        """
     user_id = get_jwt_identity()
     data = request.get_json()
-    
+        
     if not data or 'code' not in data:
         return jsonify({
-            "success": False,
+                "success": False,
             "error": {
                 "code": "missing_parameter",
                 "message": "Missing required parameter: code"
@@ -232,14 +232,14 @@ def enable_totp():
     
     if not totp_secret:
         return jsonify({
-            "success": False,
+                    "success": False,
             "error": {
                 "code": "totp_not_setup",
                 "message": "TOTP is not set up for this user"
             }
         }), 400
-    
-    # Verify the code
+            
+            # Verify the code
     totp = pyotp.TOTP(totp_secret.secret)
     if not totp.verify(code):
         # Log the failed verification
@@ -255,7 +255,7 @@ def enable_totp():
                 )
         
         return jsonify({
-            "success": False,
+                "success": False,
             "error": {
                 "code": "invalid_code",
                 "message": "Invalid TOTP code"
@@ -281,7 +281,7 @@ def enable_totp():
             )
     
     return jsonify({
-        "success": True,
+                "success": True,
         "message": "TOTP authentication enabled",
         "recovery_codes": recovery_codes
     })
@@ -293,8 +293,8 @@ def disable_totp():
     
     Request body:
         code: TOTP code to verify before disabling
-        
-    Returns:
+            
+        Returns:
         Success message
     """
     user_id = get_jwt_identity()
@@ -403,8 +403,8 @@ def totp_status():
 @jwt_required()
 def twofa_status():
     """Get overall 2FA status for the user.
-    
-    Returns:
+            
+        Returns:
         Overall 2FA status information
     """
     user_id = get_jwt_identity()
@@ -458,8 +458,8 @@ def twofa_status():
 @jwt_required()
 def get_recovery_codes():
     """Get recovery codes for the user.
-    
-    Returns:
+            
+        Returns:
         List of unused recovery codes
     """
     user_id = get_jwt_identity()
@@ -472,7 +472,7 @@ def get_recovery_codes():
     
     if not user:
         return jsonify({
-            "success": False,
+                    "success": False,
             "error": {
                 "code": "user_not_found",
                 "message": "User not found"
@@ -481,7 +481,7 @@ def get_recovery_codes():
     
     if not user.two_fa_enabled:
         return jsonify({
-            "success": False,
+                "success": False,
             "error": {
                 "code": "2fa_not_enabled",
                 "message": "Two-factor authentication is not enabled for this user"
@@ -519,8 +519,8 @@ def verify_recovery_code():
     Request body:
         code: Recovery code to verify
         user_id: User ID (required when not authenticated)
-        
-    Returns:
+            
+        Returns:
         Verification result
     """
     data = request.get_json()
@@ -584,7 +584,7 @@ def verify_recovery_code():
             }
         }), 400
     
-    # Mark the code as used
+                # Mark the code as used
     recovery_code.used = True
     db.commit()
     

@@ -26,36 +26,135 @@ Evrmore Accounts includes comprehensive security features:
 - **Standardized Error Handling**: Consistent error responses with appropriate status codes
 - **Enhanced Logging**: Detailed logging of security events for forensic analysis
 
+## Project Structure
+
+```
+evrmore-accounts/
+│── evrmore_accounts/     # Main package (source code)
+│   ├── __init__.py       # Package initialization
+│   ├── app.py            # Main entry point
+│   ├── api/              # API endpoints
+│   ├── database.py       # Database models & management
+│   ├── server_security.py # Security & rate-limiting features
+│   ├── healthcheck.py    # Health check utilities
+│   ├── advanced_rate_limiter.py # Rate limiting implementation
+│   ├── security_headers.py # Security headers middleware
+│   └── data/             # Data files
+│
+│── config/               # Configuration files
+│   ├── config.py         # Configuration classes
+│   └── .env.example      # Example environment variables
+│
+│── tests/                # Test files
+│   ├── unit/             # Unit tests
+│   ├── integration/      # Integration tests
+│   └── security/         # Security tests
+│
+│── docs/                 # Documentation
+│   ├── implementation/   # Implementation documentation
+│   └── API_REFERENCE.md  # API reference
+│
+│── scripts/              # Helper scripts
+│   ├── run.py            # Development server runner
+│   └── run_gunicorn.sh   # Production server runner
+│
+│── setup.py              # Package setup script
+│── setup.cfg             # Package configuration
+│── pyproject.toml        # Project configuration
+│── MANIFEST.in           # Package manifest
+│── Makefile              # Build automation
+│── wsgi.py               # WSGI entry point
+└── LICENSE               # License file
+```
+
+For a detailed explanation of the project structure and components, see [Project Structure Documentation](docs/PROJECT_STRUCTURE.md).
+
 ## Installation
 
+You can install Evrmore Accounts directly from the repository:
+
 ```bash
-pip3 install evrmore-accounts
+# Clone the repository
+git clone https://github.com/manticoretechnologies/evrmore-accounts.git
+cd evrmore-accounts
+
+# Install the package in development mode
+pip3 install -e .
+
+# Or install with development dependencies
+pip3 install -e ".[dev]"
+```
+
+Alternatively, you can use the provided Makefile:
+
+```bash
+# Install the package
+make install
+
+# Install with development dependencies
+make dev-setup
 ```
 
 ## Running the API Server
 
+### Using the Makefile (Recommended)
+
+The provided Makefile simplifies common development tasks:
+
+```bash
+# Run the development server
+make run
+
+# Run the development server with debug mode
+make dev
+
+# Run with Gunicorn (production)
+make run-gunicorn
+
+# Run tests
+make test          # Run integration tests
+make test-unit     # Run unit tests
+make test-security # Run security tests
+make test-all      # Run all tests
+
+# Check server health
+make healthcheck
+```
+
 ### Using Gunicorn (Recommended for Production)
 
 ```bash
-# Install gunicorn if not already installed
-pip3 install gunicorn
-
 # Run with the provided script
 ./run_gunicorn.sh
 
-# Or manually
-gunicorn --bind 0.0.0.0:5000 --workers 4 --timeout 120 wsgi:app
+# Or with environment variables
+HOST=0.0.0.0 PORT=8000 WORKERS=8 TIMEOUT=120 ./run_gunicorn.sh
 ```
 
 ### Using Flask Development Server (Development Only)
 
 ```bash
-# Set environment variables
-export FLASK_APP=evrmore_accounts.app:create_app
-export FLASK_ENV=development
+# Run the development server directly
+python3 -m evrmore_accounts.app
 
-# Run the development server
-flask run
+# Or with environment variables
+DEBUG=true HOST=0.0.0.0 PORT=5000 python3 -m evrmore_accounts.app
+```
+
+## Running Tests
+
+```bash
+# Run integration tests
+python3 -m tests.integration.test_backend
+
+# Run unit tests
+python3 -m tests.unit.db_test
+
+# Run security tests
+python3 -m tests.security.test_security
+
+# Check server health
+python3 -m evrmore_accounts.healthcheck
 ```
 
 ## API Endpoints

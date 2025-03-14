@@ -149,8 +149,8 @@ def generate_challenge():
     
     Request body:
         evrmore_address: Evrmore address to generate challenge for
-        
-    Returns:
+            
+        Returns:
         Challenge information including the challenge text and expiration
     """
     data = request.get_json()
@@ -205,9 +205,8 @@ def authenticate():
         challenge: Challenge text previously generated
         signature: Signature created by signing the challenge
         
-    Returns:
-        Authentication result with token and user info
-    """
+        Returns:
+        Authentication result with token and user info"""
     try:
         data = request.get_json()
         
@@ -222,7 +221,7 @@ def authenticate():
                         "message": f"Missing required parameter: {field}"
                     }
                 }), 400
-        
+            
         evrmore_address = data['evrmore_address']
         challenge = data['challenge']
         signature = data['signature']
@@ -374,8 +373,8 @@ def authenticate():
 @jwt_required()
 def validate_token():
     """Validate an existing token
-    
-    Returns:
+        
+        Returns:
         Token validation result
     """
     # Get current user identity
@@ -415,8 +414,8 @@ def validate_token():
 @jwt_required()
 def logout():
     """Log out (invalidate token)
-    
-    Returns:
+        
+        Returns:
         Logout result
     """
     # Get JWT data
@@ -451,8 +450,8 @@ def logout():
 @jwt_required()
 def get_sessions():
     """Get all sessions for the current user
-    
-    Returns:
+            
+        Returns:
         List of active sessions
     """
     user_id = get_jwt_identity()
@@ -495,7 +494,7 @@ def revoke_session(session_id):
     Args:
         session_id: ID of the session to revoke
         
-    Returns:
+        Returns:
         Result of the revocation
     """
     user_id = get_jwt_identity()
@@ -531,8 +530,8 @@ def revoke_session(session_id):
 @jwt_required()
 def revoke_all_sessions():
     """Revoke all sessions except the current one
-    
-    Returns:
+        
+        Returns:
         Result of the revocation
     """
     user_id = get_jwt_identity()
@@ -563,4 +562,4 @@ def revoke_all_sessions():
             "code": "session_manager_unavailable",
             "message": "Session management is not available"
         }
-    }), 500 
+    }), 500

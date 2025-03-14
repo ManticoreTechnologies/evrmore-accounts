@@ -1,0 +1,11 @@
+{
+  "timestamp": "2025-03-13T19:53:41.336515",
+  "url": "http://localhost:5000",
+  "results": [
+    {
+      "name": "API Health",
+      "success": true,
+      "duration": 0.004110813140869141
+    }
+  ]
+}
